@@ -5,19 +5,18 @@
  * File Created: Tuesday, 5th January 2021 1:36:58 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description: 
- * Last Modified: Tuesday, 5th January 2021 1:45:15 pm
+ * File Description:
+ * Last Modified: Tuesday, 5th January 2021 2:12:28 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-
 import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import reportWebVitals from "./tests/reportWebVitals";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 1:46:35 pm
+ * Last Modified: Tuesday, 5th January 2021 5:24:01 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -18,16 +18,10 @@ let theme = createMuiTheme({
   background: "#222",
   palette: {
     primary: {
-      light: "#494949",
-      main: "#222222",
-      dark: "#000000",
-      contrastText: "#ffffffdb",
+      main: "#6200ea",
     },
     secondary: {
-      light: "#ff6482",
-      main: "#f92056",
-      dark: "#bf002e",
-      contrastText: "#000000",
+      main: "#64dd17",
     },
     type: "dark",
   },

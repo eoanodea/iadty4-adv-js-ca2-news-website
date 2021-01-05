@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 2:00:26 pm
+ * Last Modified: Tuesday, 5th January 2021 5:26:13 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,18 +14,29 @@
 
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { config } from "./config/config";
+import { Grid } from "@material-ui/core";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Header from "./components/layout/Header";
 
 const MainRouter = () => {
   return (
     <React.Fragment>
-      <h2>Router - Server URL: {config.server_url}</h2>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-      </Switch>
+      <Header />
+      <Grid
+        container
+        spacing={8}
+        justify="center"
+        style={{ marginTop: "20px", marginBottom: "20px" }}
+      >
+        <Grid item xs={11}>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+          </Switch>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
