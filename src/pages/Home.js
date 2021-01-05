@@ -6,19 +6,47 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 1:58:14 pm
+ * Last Modified: Tuesday, 5th January 2021 5:42:59 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
+import {
+  Typography,
+  Paper,
+  withStyles,
+  createStyles,
+  Button,
+} from "@material-ui/core";
+import { ArrowRight, Audiotrack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
-const Home = () => (
-  <div>
-    <h1>Home Page</h1>
-    <Link to="/login">Login</Link>
-  </div>
+const styles = ({ spacing }) =>
+  createStyles({
+    wrapper: {
+      padding: spacing(4),
+      textAlign: "center",
+    },
+  });
+
+const Home = ({ classes }) => (
+  <Paper elevation={3} className={classes.wrapper}>
+    <Typography variant="h4">
+      <Audiotrack fontSize="large" color="primary" />
+    </Typography>
+    <Typography variant="h3">Home Page</Typography>
+    <br />
+    <Button
+      color="secondary"
+      variant="contained"
+      endIcon={<ArrowRight />}
+      component={Link}
+      to="/login"
+    >
+      Get Started
+    </Button>
+  </Paper>
 );
 
-export default Home;
+export default withStyles(styles)(Home);

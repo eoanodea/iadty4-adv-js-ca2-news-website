@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 5:24:01 pm
+ * Last Modified: Tuesday, 5th January 2021 6:06:26 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -15,7 +15,6 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
 let theme = createMuiTheme({
-  background: "#222",
   palette: {
     primary: {
       main: "#6200ea",
@@ -23,15 +22,21 @@ let theme = createMuiTheme({
     secondary: {
       main: "#64dd17",
     },
-    type: "dark",
+    // type: "dark",
   },
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
   overrides: {
-    //
+    MuiTextField: {
+      root: {
+        width: "90%",
+        margin: "16px auto",
+      },
+    },
   },
 });
+
 theme = responsiveFontSizes(theme);
 
 export default theme;

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 5:26:13 pm
+ * Last Modified: Tuesday, 5th January 2021 6:58:20 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -16,9 +16,11 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
+import Header from "./components/layout/Header";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Header from "./components/layout/Header";
+import Profile from "./pages/Profile";
 
 const MainRouter = () => {
   return (
@@ -34,6 +36,7 @@ const MainRouter = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
+            <Route path="/profile" component={Profile} />
           </Switch>
         </Grid>
       </Grid>
