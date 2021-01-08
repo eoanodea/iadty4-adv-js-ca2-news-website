@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 4:59:39 pm
+ * Last Modified: Friday, 8th January 2021 5:51:39 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -47,13 +47,16 @@ const Header = ({ history, classes }) => {
   const [isAuthed, setIsAuthed] = React.useState(false);
 
   useEffect(() => {
-    history.listen((location, action) => {
-      console.log("hisyory change!!");
+    const setAuth = (bool) => setIsAuthed(bool);
 
+    const jwt = auth.isAuthenticated();
+    setAuth(jwt ? true : false);
+
+    history.listen(() => {
       const jwt = auth.isAuthenticated();
-      setIsAuthed(jwt ? true : false);
+      setAuth(jwt ? true : false);
     });
-  });
+  }, [history]);
 
   return (
     <AppBar position="static">

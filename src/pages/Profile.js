@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 5:25:14 pm
+ * Last Modified: Friday, 8th January 2021 5:28:34 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -84,20 +84,19 @@ const Profile = ({ classes, history }) => {
   return (
     <Card elevation={3} className={classes.wrapper}>
       <CardHeader title="Profile" />
-
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <Email />
-          </ListItemIcon>
-          <ListItemText secondary="Email" primary={user.email} />
-        </ListItem>
-
         <ListItem button>
           <ListItemIcon>
             <AccountCircle />
           </ListItemIcon>
           <ListItemText secondary="Name" primary={user.name} />
+        </ListItem>
+
+        <ListItem button>
+          <ListItemIcon>
+            <Email />
+          </ListItemIcon>
+          <ListItemText secondary="Email" primary={user.email} />
         </ListItem>
 
         <ListItem button>
