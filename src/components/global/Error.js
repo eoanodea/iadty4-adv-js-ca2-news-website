@@ -3,19 +3,33 @@
  */
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  withStyles,
+  createStyles,
+  Paper,
+} from "@material-ui/core";
+
+const styles = ({ spacing }) =>
+  createStyles({
+    wrapper: {
+      padding: spacing(4),
+    },
+  });
 
 /**
  * Renders an Error
  *  for the application
  */
-const Error = ({ message }) => (
-  <React.Fragment>
-    <h2>Error {message ? message : ""}</h2>
+const Error = ({ message, classes }) => (
+  <Paper elevation={3} className={classes.wrapper}>
+    <Typography variant="h4">{message ? message : ""}</Typography>
+    <br />
     <Button component={Link} to="/" color="primary" variant="contained">
       Home
     </Button>
-  </React.Fragment>
+  </Paper>
 );
 
-export default Error;
+export default withStyles(styles)(Error);

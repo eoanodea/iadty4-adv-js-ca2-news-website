@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 6:58:47 pm
+ * Last Modified: Friday, 8th January 2021 3:18:12 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -16,17 +16,19 @@ import React, { useEffect } from "react";
 
 import {
   Typography,
-  Paper,
+  Card,
   withStyles,
   createStyles,
   Button,
-  CircularProgress,
+  CardHeader,
+  CardActions,
 } from "@material-ui/core";
-import { Check } from "@material-ui/icons";
+import { AccountCircle, Check, ExitToApp, Home } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import auth from "../auth/auth-helper";
 import Loading from "../components/global/Loading";
 import Error from "../components/global/Error";
+import { logout } from "../auth/api-auth";
 
 const styles = ({ spacing }) =>
   createStyles({
@@ -35,7 +37,7 @@ const styles = ({ spacing }) =>
     },
   });
 
-const Profile = ({ classes }) => {
+const Profile = ({ classes, history }) => {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
@@ -47,28 +49,58 @@ const Profile = ({ classes }) => {
       setLoading(false);
     } else {
       setError("You are not authenticated, please log in");
+      setLoading(false);
     }
   }, []);
+
+  const submit = () => {
+    const jwt = auth.isAuthenticated();
+    if (jwt) {
+      setLoading(true);
+      logout(jwt.token).then((data) => {
+        if (data.errors) {
+          setLoading(false);
+          return setError(Object.values(data.errors)[0][0]);
+        }
+        setError("");
+        auth.unsetUserDetails((success) => {
+          if (success) return history.push("/");
+          setError("The system encountered an error, please try again later");
+        });
+      });
+    } else setError("The system encountered an error, please try again later");
+  };
 
   if (loading) return <Loading />;
   if (error !== "") return <Error message={error} />;
 
   return (
-    <Paper elevation={3} className={classes.wrapper}>
-      <Typography variant="h3">Profile</Typography>
-      <Typography variant="h3">{user.email}</Typography>
-
-      <Button
-        color="secondary"
-        variant="contained"
-        disabled={loading}
-        endIcon={loading ? <CircularProgress size={18} /> : <Check />}
-        component={Link}
-        to="/login"
-      >
-        Login
-      </Button>
-    </Paper>
+    <Card elevation={3} className={classes.wrapper}>
+      <CardHeader
+        title="Profile"
+        subheader={user.email}
+        avatar={<AccountCircle />}
+      />
+      <CardActions>
+        <Button
+          color="secondary"
+          variant="contained"
+          component={Link}
+          to="/"
+          endIcon={<Home />}
+        >
+          Home
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={submit}
+          endIcon={<ExitToApp />}
+        >
+          Logout
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 

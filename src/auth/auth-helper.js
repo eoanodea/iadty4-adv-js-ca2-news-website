@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 6:48:18 pm
+ * Last Modified: Friday, 8th January 2021 3:15:08 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -40,8 +40,9 @@ const auth = {
     sessionStorage.setItem("jwt", JSON.stringify(jwt));
     cb(true);
   },
-  unsetUserDetails() {
+  unsetUserDetails(cb) {
     sessionStorage.removeItem("jwt");
+    cb(true);
   },
   isAuthenticated() {
     if (typeof window == "undefined") return false;

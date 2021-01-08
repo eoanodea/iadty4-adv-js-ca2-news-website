@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 6:58:20 pm
+ * Last Modified: Friday, 8th January 2021 3:00:58 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -21,6 +21,7 @@ import Header from "./components/layout/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import Register from "./pages/Register";
 
 const MainRouter = () => {
   return (
@@ -36,6 +37,7 @@ const MainRouter = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Route path="/profile" component={Profile} />
           </Switch>
         </Grid>

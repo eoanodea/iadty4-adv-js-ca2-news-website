@@ -1,12 +1,12 @@
 /**
- * File: Login.js
+ * File: Register.js
  * Project: ca2-client
  * Version 0.1.0
  * File Created: Tuesday, 5th January 2021 1:58:06 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:15:08 pm
+ * Last Modified: Friday, 8th January 2021 3:05:53 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -24,7 +24,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { Check, Error } from "@material-ui/icons";
-import { login } from "../auth/api-auth";
+import { register } from "../auth/api-auth";
 import auth from "../auth/auth-helper";
 
 const styles = ({ spacing }) =>
@@ -34,7 +34,9 @@ const styles = ({ spacing }) =>
     },
   });
 
-const Login = ({ classes, history }) => {
+const Register = ({ classes, history }) => {
+  const [name, setName] = React.useState("");
+  const [nameError, setNameError] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -44,6 +46,11 @@ const Login = ({ classes, history }) => {
 
   const handleValidation = () => {
     let passed = true;
+
+    if (name.length < 3) {
+      setNameError("Name must be at least 3 characters");
+      passed = false;
+    }
 
     if (email.length < 3) {
       setEmailError("Email must be at least 3 characters");
@@ -64,7 +71,7 @@ const Login = ({ classes, history }) => {
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
-      login({ email, password }).then((data) => {
+      register({ name, email, password }).then((data) => {
         if (data.errors) {
           setLoading(false);
           return setError(Object.values(data.errors)[0][0]);
@@ -80,7 +87,19 @@ const Login = ({ classes, history }) => {
 
   return (
     <Paper elevation={3} className={classes.wrapper}>
-      <Typography variant="h3">Login</Typography>
+      <Typography variant="h3">Register</Typography>
+      <TextField
+        name="name"
+        label="Name"
+        autoFocus={true}
+        margin="normal"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && submit()}
+        error={nameError !== ""}
+        helperText={nameError}
+      />
+
       <TextField
         name="email"
         label="Email"
@@ -120,10 +139,10 @@ const Login = ({ classes, history }) => {
         disabled={loading}
         endIcon={loading ? <CircularProgress size={18} /> : <Check />}
       >
-        Login
+        Register
       </Button>
     </Paper>
   );
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Register);

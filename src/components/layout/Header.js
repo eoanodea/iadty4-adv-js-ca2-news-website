@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 5:25:46 pm
+ * Last Modified: Friday, 8th January 2021 3:00:24 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -53,6 +53,9 @@ const Header = () => (
         </Button>
         <Button component={Link} to="/login">
           Login
+        </Button>
+        <Button component={Link} to="/register">
+          Register
         </Button>
       </div>
     </Toolbar>

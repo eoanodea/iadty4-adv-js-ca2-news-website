@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 6:26:59 pm
+ * Last Modified: Friday, 8th January 2021 3:12:24 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -30,6 +30,47 @@ export const login = async (body) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
+    });
+    return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+/**
+ * Register
+ *
+ * @param {body: {name: String, email: String, password: String}} body
+ */
+export const register = async (body) => {
+  try {
+    const response = await fetch(`${config.server_url}${prefix}register`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+/**
+ * Logout
+ *
+ */
+export const logout = async (token) => {
+  try {
+    const response = await fetch(`${config.server_url}${prefix}logout`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.json();
   } catch (err) {
