@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:18:12 pm
+ * Last Modified: Friday, 8th January 2021 3:27:44 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -15,15 +15,14 @@
 import React, { useEffect } from "react";
 
 import {
-  Typography,
-  Card,
+  CardHeader,
   withStyles,
   createStyles,
   Button,
-  CardHeader,
+  Card,
   CardActions,
 } from "@material-ui/core";
-import { AccountCircle, Check, ExitToApp, Home } from "@material-ui/icons";
+import { AccountCircle, ExitToApp, Home } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import auth from "../auth/auth-helper";
 import Loading from "../components/global/Loading";

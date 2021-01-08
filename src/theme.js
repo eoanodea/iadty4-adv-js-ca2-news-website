@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 5th January 2021 6:06:26 pm
+ * Last Modified: Friday, 8th January 2021 3:32:28 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -30,7 +30,7 @@ let theme = createMuiTheme({
   overrides: {
     MuiTextField: {
       root: {
-        width: "90%",
+        width: "100%",
         margin: "16px auto",
       },
     },

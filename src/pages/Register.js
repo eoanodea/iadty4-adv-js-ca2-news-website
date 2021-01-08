@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:05:53 pm
+ * Last Modified: Friday, 8th January 2021 3:33:34 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -16,12 +16,15 @@ import React from "react";
 
 import {
   Typography,
-  Paper,
+  CardHeader,
+  Card,
   withStyles,
   createStyles,
   Button,
   TextField,
   CircularProgress,
+  CardActions,
+  CardContent,
 } from "@material-ui/core";
 import { Check, Error } from "@material-ui/icons";
 import { register } from "../auth/api-auth";
@@ -86,62 +89,68 @@ const Register = ({ classes, history }) => {
   };
 
   return (
-    <Paper elevation={3} className={classes.wrapper}>
-      <Typography variant="h3">Register</Typography>
-      <TextField
-        name="name"
-        label="Name"
-        autoFocus={true}
-        margin="normal"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && submit()}
-        error={nameError !== ""}
-        helperText={nameError}
-      />
+    <Card elevation={3} className={classes.wrapper}>
+      <CardHeader title="Register" />
+      <CardContent>
+        <TextField
+          name="name"
+          label="Name"
+          autoFocus={true}
+          margin="normal"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && submit()}
+          error={nameError !== ""}
+          helperText={nameError}
+        />
 
-      <TextField
-        name="email"
-        label="Email"
-        autoFocus={true}
-        margin="normal"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && submit()}
-        error={emailError !== ""}
-        helperText={emailError}
-      />
+        <TextField
+          name="email"
+          label="Email"
+          margin="normal"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && submit()}
+          error={emailError !== ""}
+          helperText={emailError}
+        />
 
-      <TextField
-        name="password"
-        label="Password"
-        autoFocus={true}
-        margin="normal"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && submit()}
-        error={passwordError !== ""}
-        helperText={passwordError}
-      />
+        <TextField
+          name="password"
+          label="Password"
+          type="password"
+          margin="normal"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && submit()}
+          error={passwordError !== ""}
+          helperText={passwordError}
+        />
 
-      <br />
-      {error !== "" && (
-        <Typography component="p" color="error" style={{ textAlign: "center" }}>
-          <Error color="error" className={classes.error} />
-          {error}
-        </Typography>
-      )}
-
-      <Button
-        color="secondary"
-        variant="contained"
-        onClick={submit}
-        disabled={loading}
-        endIcon={loading ? <CircularProgress size={18} /> : <Check />}
-      >
-        Register
-      </Button>
-    </Paper>
+        <br />
+        {error !== "" && (
+          <Typography
+            component="p"
+            color="error"
+            style={{ textAlign: "center" }}
+          >
+            <Error color="error" className={classes.error} />
+            {error}
+          </Typography>
+        )}
+      </CardContent>
+      <CardActions>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={submit}
+          disabled={loading}
+          endIcon={loading ? <CircularProgress size={18} /> : <Check />}
+        >
+          Register
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 
