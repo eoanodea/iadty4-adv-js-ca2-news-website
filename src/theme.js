@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:55:18 pm
+ * Last Modified: Friday, 8th January 2021 5:23:48 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -32,6 +32,10 @@ let theme = createMuiTheme({
         width: "100%",
         margin: "16px auto",
       },
+    },
+    MuiListItemText: {
+      display: "flex",
+      flexDirection: "column-reverse",
     },
   },
 });

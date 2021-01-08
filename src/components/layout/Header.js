@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 4:35:22 pm
+ * Last Modified: Friday, 8th January 2021 4:59:39 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -15,7 +15,8 @@
 /**
  * Primary dependencies
  */
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
 
 /**
  * Component Library imports
@@ -29,7 +30,8 @@ import {
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import routes from "./../../routes";
+import routes from "./../../routing/routes";
+import auth from "../../auth/auth-helper";
 
 const styles = () =>
   createStyles({
@@ -41,7 +43,18 @@ const styles = () =>
 /**
  * Header for the application
  */
-const Header = ({ classes, authenticated = false }) => {
+const Header = ({ history, classes }) => {
+  const [isAuthed, setIsAuthed] = React.useState(false);
+
+  useEffect(() => {
+    history.listen((location, action) => {
+      console.log("hisyory change!!");
+
+      const jwt = auth.isAuthenticated();
+      setIsAuthed(jwt ? true : false);
+    });
+  });
+
   return (
     <AppBar position="static">
       <Toolbar className={classes.root}>
@@ -54,7 +67,7 @@ const Header = ({ classes, authenticated = false }) => {
             Home
           </Button>
           {routes
-            .filter((route) => route.authed === authenticated)
+            .filter((route) => route.authed === isAuthed)
             .map((route, i) => (
               <Button key={i} component={Link} to={route.link}>
                 {route.name}
@@ -66,4 +79,4 @@ const Header = ({ classes, authenticated = false }) => {
   );
 };
 
-export default withStyles(styles)(Header);
+export default withRouter(withStyles(styles)(Header));

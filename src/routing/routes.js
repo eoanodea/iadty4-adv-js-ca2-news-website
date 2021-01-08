@@ -6,15 +6,15 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 4:37:48 pm
+ * Last Modified: Friday, 8th January 2021 4:40:42 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Register from "./pages/Register";
+import Login from "../pages/Login";
+import Profile from "../pages/Profile";
+import Register from "../pages/Register";
 
 const routes = [
   {

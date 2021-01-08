@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:53:21 pm
+ * Last Modified: Friday, 8th January 2021 4:46:28 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -21,6 +21,7 @@ import {
 } from "@material-ui/core";
 import { ArrowRight, Audiotrack } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import auth from "../auth/auth-helper";
 
 const styles = ({ spacing }) =>
   createStyles({
@@ -30,23 +31,26 @@ const styles = ({ spacing }) =>
     },
   });
 
-const Home = ({ classes }) => (
-  <Paper elevation={3} className={classes.wrapper}>
-    <Typography variant="h4">
-      <Audiotrack fontSize="large" color="primary" />
-    </Typography>
-    <Typography variant="h3">Home Page</Typography>
-    <br />
-    <Button
-      color="secondary"
-      variant="contained"
-      endIcon={<ArrowRight />}
-      component={Link}
-      to="/login"
-    >
-      Get Started
-    </Button>
-  </Paper>
-);
+const Home = ({ classes }) => {
+  const jwt = auth.isAuthenticated();
 
+  return (
+    <Paper elevation={3} className={classes.wrapper}>
+      <Typography variant="h4">
+        <Audiotrack fontSize="large" color="primary" />
+      </Typography>
+      <Typography variant="h3">Home Page</Typography>
+      <br />
+      <Button
+        color="secondary"
+        variant="contained"
+        endIcon={<ArrowRight />}
+        component={Link}
+        to={jwt ? "/profile" : "/login"}
+      >
+        {jwt ? "Profile" : "Login"}
+      </Button>
+    </Paper>
+  );
+};
 export default withStyles(styles)(Home);
