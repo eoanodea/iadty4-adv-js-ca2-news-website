@@ -6,27 +6,13 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:15:08 pm
+ * Last Modified: Friday, 8th January 2021 3:56:38 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 const auth = {
-  // setUserDetails(id, token, cb) {
-  //   get({ userId: id, token: token }).then((res) => {
-  //     if (!res || res.error) {
-  //       return cb(false);
-  //     }
-
-  //     const jwt = {
-  //       token: token,
-  //       user: res.user,
-  //     };
-  //     sessionStorage.setItem("jwt", JSON.stringify(jwt));
-  //     cb(true);
-  //   });
-  // },
   setUserDetails(user, cb) {
     const jwt = {
       token: user.api_token,
@@ -54,19 +40,6 @@ const auth = {
 
     return false;
   },
-
-  // updateUser(user, cb) {
-  //   if (typeof window !== "undefined") {
-  //     if (sessionStorage.getItem("jwt")) {
-  //       let auth = JSON.parse(sessionStorage.getItem("jwt"));
-  //       const email = auth.user.email;
-  //       auth.user = user;
-  //       auth.user.email = email;
-  //       sessionStorage.setItem("jwt", JSON.stringify(auth));
-  //       cb();
-  //     }
-  //   }
-  // },
 };
 
 export default auth;

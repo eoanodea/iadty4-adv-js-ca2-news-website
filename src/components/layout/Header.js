@@ -6,21 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:00:24 pm
- * Modified By: Eoan O'Dea (eoan@web-space.design>)
- * -----
- * Copyright 2021 WebSpace, WebSpace
- */
-
-/*
- * File: Header.tsx
- * Project: ca2-client
- * Version 0.1.0
- * File Created: Tuesday, 5th January 2021 5:24:46 pm
- * Author: Eoan O'Dea (eoan@web-space.design)
- * -----
- * File Description:
- * Last Modified: Tuesday, 5th January 2021 5:24:48 pm
+ * Last Modified: Friday, 8th January 2021 4:35:22 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -34,32 +20,50 @@ import React from "react";
 /**
  * Component Library imports
  */
-import { AppBar, Button, Toolbar } from "@material-ui/core";
+import {
+  AppBar,
+  Button,
+  createStyles,
+  Toolbar,
+  withStyles,
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
+
+import routes from "./../../routes";
+
+const styles = () =>
+  createStyles({
+    root: {
+      justifyContent: "space-between",
+    },
+  });
 
 /**
  * Header for the application
  */
-const Header = () => (
-  <AppBar position="static">
-    <Toolbar style={{ justifyContent: "space-between" }}>
-      <Button component={Link} to="/">
-        Adv JS CA2
-      </Button>
-
-      <div>
+const Header = ({ classes, authenticated = false }) => {
+  return (
+    <AppBar position="static">
+      <Toolbar className={classes.root}>
         <Button component={Link} to="/">
-          Home
+          Adv JS CA2
         </Button>
-        <Button component={Link} to="/login">
-          Login
-        </Button>
-        <Button component={Link} to="/register">
-          Register
-        </Button>
-      </div>
-    </Toolbar>
-  </AppBar>
-);
 
-export default Header;
+        <div>
+          <Button component={Link} to="/">
+            Home
+          </Button>
+          {routes
+            .filter((route) => route.authed === authenticated)
+            .map((route, i) => (
+              <Button key={i} component={Link} to={route.link}>
+                {route.name}
+              </Button>
+            ))}
+        </div>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default withStyles(styles)(Header);

@@ -6,27 +6,34 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:00:58 pm
+ * Last Modified: Friday, 8th January 2021 4:37:48 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
 import Header from "./components/layout/Header";
 
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
-import Register from "./pages/Register";
+
+import routes from "./routes";
+import auth from "./auth/auth-helper";
 
 const MainRouter = () => {
+  const [isAuthed, setIsAuthed] = React.useState(false);
+
+  useEffect(() => {
+    const jwt = auth.isAuthenticated();
+    setIsAuthed(jwt ? true : false);
+  }, []);
+
   return (
     <React.Fragment>
-      <Header />
+      <Header authenticated={isAuthed} />
       <Grid
         container
         spacing={8}
@@ -36,9 +43,14 @@ const MainRouter = () => {
         <Grid item xs={11}>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
+
+            {routes.map(({ link, component }, i) => (
+              <Route path={link} component={component} key={i} />
+            ))}
+
+            {/* <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/profile" component={Profile} /> */}
           </Switch>
         </Grid>
       </Grid>

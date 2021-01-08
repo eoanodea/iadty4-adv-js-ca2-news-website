@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:32:28 pm
+ * Last Modified: Friday, 8th January 2021 3:55:18 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -17,12 +17,11 @@ import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 let theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#6200ea",
+      main: "#2196f3",
     },
     secondary: {
-      main: "#64dd17",
+      main: "#ffc400",
     },
-    // type: "dark",
   },
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:27:44 pm
+ * Last Modified: Friday, 8th January 2021 4:05:22 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -26,7 +26,7 @@ import { AccountCircle, ExitToApp, Home } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import auth from "../auth/auth-helper";
 import Loading from "../components/global/Loading";
-import Error from "../components/global/Error";
+import EmptyState from "../components/global/Error";
 import { logout } from "../auth/api-auth";
 
 const styles = ({ spacing }) =>
@@ -71,7 +71,7 @@ const Profile = ({ classes, history }) => {
   };
 
   if (loading) return <Loading />;
-  if (error !== "") return <Error message={error} />;
+  if (error !== "") return <EmptyState message={error} />;
 
   return (
     <Card elevation={3} className={classes.wrapper}>
