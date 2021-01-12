@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 6:12:48 pm
+ * Last Modified: Tuesday, 12th January 2021 1:26:01 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -18,7 +18,7 @@ import Loading from "../components/global/Loading";
 import EmptyState from "../components/global/Error";
 
 import { list } from "./../api/api-article";
-import auth from "../auth/auth-helper";
+
 import {
   Card,
   CardHeader,
@@ -51,19 +51,15 @@ const Articles = ({ classes }) => {
   }, []);
 
   const load = () => {
-    const jwt = auth.isAuthenticated();
-    if (jwt) {
-      setLoading(true);
-      list(jwt.token).then((data) => {
-        setLoading(false);
-        if (data.errors) {
-          return setError(Object.values(data.errors)[0][0]);
-        }
-        setError("");
+    list().then((data) => {
+      setLoading(false);
+      if (data.errors) {
+        return setError(Object.values(data.errors)[0][0]);
+      }
+      setError("");
 
-        setArticles(data);
-      });
-    }
+      setArticles(data);
+    });
   };
 
   if (loading) return <Loading />;

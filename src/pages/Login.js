@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:28:29 pm
+ * Last Modified: Tuesday, 12th January 2021 1:34:17 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -27,8 +27,8 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { Check, Error } from "@material-ui/icons";
-import { login } from "../auth/api-auth";
-import auth from "../auth/auth-helper";
+import { login } from "../api/api-auth";
+import auth from "../helpers/auth-helper";
 
 const styles = ({ spacing }) =>
   createStyles({

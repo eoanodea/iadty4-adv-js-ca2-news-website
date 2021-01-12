@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:33:25 pm
+ * Last Modified: Tuesday, 12th January 2021 1:33:54 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,10 +14,10 @@
 
 import { config } from "../config/config";
 
-const prefix = "/api/articles";
+const prefix = "/api/categories";
 
 /**
- * Fetch Articles
+ * Fetch Categories
  *
  */
 export const list = async () => {

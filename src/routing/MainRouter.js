@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 5:24:30 pm
+ * Last Modified: Tuesday, 12th January 2021 1:26:17 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -18,9 +18,8 @@ import { Grid } from "@material-ui/core";
 
 import Header from "../components/layout/Header";
 
-import Home from "../pages/Home";
-
 import routes from "./routes";
+import Articles from "../pages/Articles";
 
 const MainRouter = () => {
   return (
@@ -34,7 +33,7 @@ const MainRouter = () => {
       >
         <Grid item xs={11}>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Articles} />
 
             {routes.map(({ link, component }, i) => (
               <Route path={link} component={component} key={i} />

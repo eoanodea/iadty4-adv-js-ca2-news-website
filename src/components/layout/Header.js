@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 5:51:39 pm
+ * Last Modified: Tuesday, 12th January 2021 1:35:08 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -31,7 +31,7 @@ import {
 import { Link } from "react-router-dom";
 
 import routes from "./../../routing/routes";
-import auth from "../../auth/auth-helper";
+import auth from "../../helpers/auth-helper";
 
 const styles = () =>
   createStyles({
@@ -62,7 +62,7 @@ const Header = ({ history, classes }) => {
     <AppBar position="static">
       <Toolbar className={classes.root}>
         <Button component={Link} to="/">
-          Adv JS CA2
+          {/* Adv JS CA2 */}
         </Button>
 
         <div>
