@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:26:01 pm
+ * Last Modified: Tuesday, 12th January 2021 3:04:49 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -17,7 +17,8 @@ import React, { useEffect } from "react";
 import Loading from "../components/global/Loading";
 import EmptyState from "../components/global/Error";
 
-import { list } from "./../api/api-article";
+import { list as listArticles } from "./../api/api-article";
+import { list as listCategories } from "./../api/api-categories";
 
 import {
   Card,
@@ -29,12 +30,13 @@ import {
   withStyles,
   CardActionArea,
 } from "@material-ui/core";
-import theme from "../theme";
 
-const styles = ({ palette }) =>
+import FilterCategories from "../components/data/FilterCategories";
+
+const styles = ({ palette, spacing }) =>
   createStyles({
     card: {
-      margin: `${theme.spacing(4)}px auto`,
+      margin: `${spacing(4)}px auto`,
     },
     avatar: {
       background: palette.secondary.main,
@@ -43,6 +45,8 @@ const styles = ({ palette }) =>
 
 const Articles = ({ classes }) => {
   const [articles, setArticles] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
+  const [filters, setFilters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
 
@@ -51,43 +55,78 @@ const Articles = ({ classes }) => {
   }, []);
 
   const load = () => {
-    list().then((data) => {
+    setLoading(true);
+    listArticles().then((data) => {
       setLoading(false);
-      if (data.errors) {
-        return setError(Object.values(data.errors)[0][0]);
+      if (!data || data.errors) {
+        return setError(
+          data ? Object.values(data.errors)[0][0] : "Could not load data"
+        );
       }
       setError("");
 
       setArticles(data);
     });
+
+    listCategories().then((data) => {
+      setLoading(false);
+      if (!data || data.errors) {
+        return setError(
+          data ? Object.values(data.errors)[0][0] : "Could not load data"
+        );
+      }
+      setError("");
+
+      setCategories(data);
+    });
   };
 
+  const selectCategory = (categories) => setFilters(categories);
+
   if (loading) return <Loading />;
-  if (error !== "") return <EmptyState message={error} />;
+  if (error !== "") return <EmptyState message={error} action={load} />;
 
   return (
     <React.Fragment>
       <CardHeader title="Articles" />
-      {articles.map((article, i) => (
-        <Card key={i} className={classes.card}>
-          <CardActionArea>
-            <CardHeader
-              avatar={
-                <Avatar color="secondary" className={classes.avatar}>
-                  {article.user.name[0]}
-                </Avatar>
-              }
-              title={article.title}
-              subheader={article.category.title}
-            />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {article.body.substring(0, 50)}...
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      ))}
+      <FilterCategories
+        categories={categories}
+        selectCategory={selectCategory}
+      />
+      {articles
+        .filter((article) => {})
+        .map((article, i) => {
+          if (
+            filters.length > 0 &&
+            filters.findIndex((filter) => filter.id === article.id) !== -1
+          ) {
+          }
+
+          return (
+            <Card key={i} className={classes.card}>
+              <CardActionArea>
+                <CardHeader
+                  avatar={
+                    <Avatar color="secondary" className={classes.avatar}>
+                      {article.user.name[0]}
+                    </Avatar>
+                  }
+                  title={article.title}
+                  subheader={article.category.title}
+                />
+                <CardContent>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {article.body.substring(0, 50)}...
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          );
+        })}
     </React.Fragment>
   );
 };
