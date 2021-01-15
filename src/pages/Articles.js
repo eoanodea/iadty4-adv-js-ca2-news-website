@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 3:04:49 pm
+ * Last Modified: Friday, 15th January 2021 3:25:39 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -94,13 +94,22 @@ const Articles = ({ classes }) => {
         selectCategory={selectCategory}
       />
       {articles
-        .filter((article) => {})
-        .map((article, i) => {
-          if (
-            filters.length > 0 &&
-            filters.findIndex((filter) => filter.id === article.id) !== -1
-          ) {
+        .filter((article) => {
+          if (filters.length > 0) {
+            return (
+              filters.findIndex(
+                (filter) => filter.id === article.category.id
+              ) !== -1
+            );
           }
+          return article;
+        })
+        .map((article, i) => {
+          // if (
+          //   filters.length > 0 &&
+          //   filters.findIndex((filter) => filter.id === article.id) !== -1
+          // ) {
+          // }
 
           return (
             <Card key={i} className={classes.card}>
