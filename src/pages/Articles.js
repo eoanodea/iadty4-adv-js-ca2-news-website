@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 15th January 2021 3:25:39 pm
+ * Last Modified: Tuesday, 19th January 2021 1:22:53 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -32,23 +32,17 @@ import {
 } from "@material-ui/core";
 
 import FilterCategories from "../components/data/FilterCategories";
+import { Link } from "react-router-dom";
+import ArticleItem from "../components/article/ArticleItem";
 
-const styles = ({ palette, spacing }) =>
-  createStyles({
-    card: {
-      margin: `${spacing(4)}px auto`,
-    },
-    avatar: {
-      background: palette.secondary.main,
-    },
-  });
-
-const Articles = ({ classes }) => {
+const Articles = () => {
+  const [title, setTitle] = React.useState("Articles");
   const [articles, setArticles] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [filters, setFilters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
+  const [defaultValueIndex, setDefaultValueIndex] = React.useState(0);
 
   useEffect(() => {
     load();
@@ -57,27 +51,37 @@ const Articles = ({ classes }) => {
   const load = () => {
     setLoading(true);
     listArticles().then((data) => {
-      setLoading(false);
       if (!data || data.errors) {
+        setLoading(false);
         return setError(
           data ? Object.values(data.errors)[0][0] : "Could not load data"
         );
       }
       setError("");
-
       setArticles(data);
     });
 
     listCategories().then((data) => {
-      setLoading(false);
       if (!data || data.errors) {
+        setLoading(false);
+
         return setError(
           data ? Object.values(data.errors)[0][0] : "Could not load data"
         );
       }
       setError("");
+      if (window.location.pathname.includes("category")) {
+        const categoryId = window.location.pathname.split("category/")[1];
+        const categoryI = data.findIndex(
+          (category) => category.id === parseInt(categoryId)
+        );
 
+        setTitle(`${data[categoryI].title} Articles`);
+        setDefaultValueIndex(categoryI);
+        setFilters([data[categoryI]]);
+      }
       setCategories(data);
+      setLoading(false);
     });
   };
 
@@ -88,8 +92,9 @@ const Articles = ({ classes }) => {
 
   return (
     <React.Fragment>
-      <CardHeader title="Articles" />
+      <CardHeader title={title} />
       <FilterCategories
+        defaultValueIndex={defaultValueIndex}
         categories={categories}
         selectCategory={selectCategory}
       />
@@ -105,39 +110,17 @@ const Articles = ({ classes }) => {
           return article;
         })
         .map((article, i) => {
-          // if (
-          //   filters.length > 0 &&
-          //   filters.findIndex((filter) => filter.id === article.id) !== -1
-          // ) {
-          // }
-
           return (
-            <Card key={i} className={classes.card}>
-              <CardActionArea>
-                <CardHeader
-                  avatar={
-                    <Avatar color="secondary" className={classes.avatar}>
-                      {article.user.name[0]}
-                    </Avatar>
-                  }
-                  title={article.title}
-                  subheader={article.category.title}
-                />
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {article.body.substring(0, 50)}...
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+            <ArticleItem
+              key={i}
+              article={article}
+              link={`/article/${article.id}`}
+              contentLimit={50}
+            />
           );
         })}
     </React.Fragment>
   );
 };
 
-export default withStyles(styles)(Articles);
+export default Articles;

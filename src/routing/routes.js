@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:26:17 pm
+ * Last Modified: Friday, 15th January 2021 4:43:53 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -15,6 +15,8 @@
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Register from "../pages/Register";
+import Article from "../pages/Article";
+import Articles from "../pages/Articles";
 
 const routes = [
   {
@@ -22,18 +24,39 @@ const routes = [
     link: "/login",
     component: Login,
     authed: false,
+    displayOnNav: true,
   },
   {
     name: "Register",
     link: "/register",
     component: Register,
     authed: false,
+    displayOnNav: true,
   },
   {
     name: "Profile",
     link: "/profile",
     component: Profile,
     authed: true,
+    displayOnNav: true,
+  },
+  {
+    name: "Article",
+    link: "/article/:id",
+    component: Article,
+    authed: false,
+  },
+  {
+    name: "Articles by User",
+    link: "/user/:id",
+    component: Articles,
+    authed: false,
+  },
+  {
+    name: "Articles by Category",
+    link: "/category/:id",
+    component: Articles,
+    authed: false,
   },
 ];
 

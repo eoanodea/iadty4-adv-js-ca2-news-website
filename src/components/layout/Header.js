@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:35:08 pm
+ * Last Modified: Friday, 15th January 2021 3:54:15 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -70,7 +70,7 @@ const Header = ({ history, classes }) => {
             Home
           </Button>
           {routes
-            .filter((route) => route.authed === isAuthed)
+            .filter((route) => route.authed === isAuthed && route.displayOnNav)
             .map((route, i) => (
               <Button key={i} component={Link} to={route.link}>
                 {route.name}
