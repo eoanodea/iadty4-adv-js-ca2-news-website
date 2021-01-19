@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:22:53 pm
+ * Last Modified: Tuesday, 19th January 2021 1:25:45 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -16,24 +16,13 @@ import React, { useEffect } from "react";
 
 import Loading from "../components/global/Loading";
 import EmptyState from "../components/global/Error";
+import FilterCategories from "../components/data/FilterCategories";
+import ArticleItem from "../components/article/ArticleItem";
 
 import { list as listArticles } from "./../api/api-article";
 import { list as listCategories } from "./../api/api-categories";
 
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  Typography,
-  createStyles,
-  withStyles,
-  CardActionArea,
-} from "@material-ui/core";
-
-import FilterCategories from "../components/data/FilterCategories";
-import { Link } from "react-router-dom";
-import ArticleItem from "../components/article/ArticleItem";
+import { CardHeader } from "@material-ui/core";
 
 const Articles = () => {
   const [title, setTitle] = React.useState("Articles");

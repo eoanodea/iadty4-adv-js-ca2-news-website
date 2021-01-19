@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 15th January 2021 4:39:39 pm
+ * Last Modified: Tuesday, 19th January 2021 1:27:16 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,24 +14,13 @@
 
 import React, { useEffect } from "react";
 
-import Loading from "../components/global/Loading";
-import EmptyState from "../components/global/Error";
-
 import { show } from "./../api/api-article";
 
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  Typography,
-  createStyles,
-  withStyles,
-  CardActionArea,
-} from "@material-ui/core";
-
-import FilterCategories from "../components/data/FilterCategories";
+import Loading from "../components/global/Loading";
+import EmptyState from "../components/global/Error";
 import ArticleItem from "../components/article/ArticleItem";
+
+import { createStyles, withStyles } from "@material-ui/core";
 
 const styles = ({ palette, spacing }) =>
   createStyles({
@@ -43,16 +32,14 @@ const styles = ({ palette, spacing }) =>
     },
   });
 
-const Article = ({ classes, match }) => {
+const Article = ({ match }) => {
   const [article, setArticle] = React.useState([]);
-  // const [categories, setCategories] = React.useState([]);
-  // const [filters, setFilters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
 
   useEffect(() => {
     load();
-  }, []);
+  });
 
   const load = () => {
     setLoading(true);
