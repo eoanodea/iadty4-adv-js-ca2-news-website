@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:33:54 pm
+ * Last Modified: Tuesday, 19th January 2021 1:53:05 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,7 +14,7 @@
 
 import { config } from "../config/config";
 
-const prefix = "/api/categories";
+const prefix = config.server_url + "/api/categories";
 
 /**
  * Fetch Categories
@@ -22,7 +22,7 @@ const prefix = "/api/categories";
  */
 export const list = async () => {
   try {
-    const response = await fetch(`${config.server_url}${prefix}`, {
+    const response = await fetch(prefix, {
       method: "GET",
       headers: {
         Accept: "application/json",

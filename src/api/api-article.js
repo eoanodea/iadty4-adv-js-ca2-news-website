@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 15th January 2021 3:32:08 pm
+ * Last Modified: Tuesday, 19th January 2021 1:53:06 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,7 +14,7 @@
 
 import { config } from "../config/config";
 
-const prefix = "/api/articles";
+const prefix = config.server_url + "/api/articles";
 
 /**
  * Fetch a list of articles
@@ -22,7 +22,7 @@ const prefix = "/api/articles";
  */
 export const list = async () => {
   try {
-    const response = await fetch(`${config.server_url}${prefix}`, {
+    const response = await fetch(prefix, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -37,10 +37,12 @@ export const list = async () => {
 
 /**
  * Fetch an article by ID
+ *
+ * @param {id: string}
  */
 export const show = async (id) => {
   try {
-    const response = await fetch(`${config.server_url}${prefix}/${id}`, {
+    const response = await fetch(`${prefix}/${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

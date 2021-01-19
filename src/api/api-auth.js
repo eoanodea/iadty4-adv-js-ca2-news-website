@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 8th January 2021 3:12:24 pm
+ * Last Modified: Tuesday, 19th January 2021 1:53:06 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,7 +14,7 @@
 
 import { config } from "../config/config";
 
-const prefix = "/api/";
+const prefix = config.server_url + "/api";
 
 /**
  * Login
@@ -23,7 +23,7 @@ const prefix = "/api/";
  */
 export const login = async (body) => {
   try {
-    const response = await fetch(`${config.server_url}${prefix}login`, {
+    const response = await fetch(`${prefix}/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -44,7 +44,7 @@ export const login = async (body) => {
  */
 export const register = async (body) => {
   try {
-    const response = await fetch(`${config.server_url}${prefix}register`, {
+    const response = await fetch(`${prefix}/register`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -64,7 +64,7 @@ export const register = async (body) => {
  */
 export const logout = async (token) => {
   try {
-    const response = await fetch(`${config.server_url}${prefix}logout`, {
+    const response = await fetch(`${prefix}/logout`, {
       method: "POST",
       headers: {
         Accept: "application/json",

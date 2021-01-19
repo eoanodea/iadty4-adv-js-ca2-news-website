@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:44:18 pm
+ * Last Modified: Tuesday, 19th January 2021 1:53:06 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -16,7 +16,7 @@ import React, { useEffect, useCallback } from "react";
 
 import Loading from "../components/global/Loading";
 import EmptyState from "../components/global/Error";
-import FilterCategories from "../components/data/FilterCategories";
+import FilterCategories from "../components/category/FilterCategories";
 import ArticleItem from "../components/article/ArticleItem";
 
 import { list as listArticles } from "./../api/api-article";
