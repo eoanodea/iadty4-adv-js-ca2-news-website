@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:31:20 pm
+ * Last Modified: Tuesday, 19th January 2021 1:44:18 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -31,7 +31,7 @@ const Articles = () => {
   const [filters, setFilters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
-  const [defaultValueIndex, setDefaultValueIndex] = React.useState(0);
+  const [defaultValueIndex, setDefaultValueIndex] = React.useState(null);
 
   const load = useCallback(() => {
     setLoading(true);
@@ -62,7 +62,7 @@ const Articles = () => {
         );
 
         setTitle(`${data[categoryI].title} Articles`);
-        setDefaultValueIndex(categoryI);
+        categoryI !== -1 && setDefaultValueIndex(categoryI);
         setFilters([data[categoryI]]);
       }
       setCategories(data);
@@ -74,7 +74,15 @@ const Articles = () => {
     load();
   }, [load]);
 
-  const selectCategory = (categories) => setFilters(categories);
+  const selectCategory = (filteredCategories) => {
+    if (
+      defaultValueIndex &&
+      categories[defaultValueIndex].id !== filteredCategories[defaultValueIndex]
+    ) {
+      setTitle("Articles");
+    }
+    setFilters(filteredCategories);
+  };
 
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;

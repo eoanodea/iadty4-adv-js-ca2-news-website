@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 15th January 2021 5:08:36 pm
+ * Last Modified: Tuesday, 19th January 2021 1:41:07 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -35,56 +35,46 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 const FilterCategories = ({
   categories,
   selectCategory,
-  defaultValueIndex = -1,
+  defaultValueIndex = null,
 }) => {
-  if (categories && categories.length > 0)
+  if (categories && categories.length > 0) {
     console.log("default valueindex!!", defaultValueIndex);
-  return (
-    <div>
-      <Autocomplete
-        multiple
-        id="filter-categories"
-        options={categories}
-        getOptionLabel={(option) => option.title}
-        disableCloseOnSelect
-        limitTags={3}
-        // defaultValue={
-        //   categories[0]
-        //   // defaultValueIndex !== 0 ? categories[defaultValueIndex] : undefined
-        // }
-        onChange={(event, value) => selectCategory(value)}
-        renderOption={(option, { selected }) => (
-          <React.Fragment>
-            <Checkbox
-              icon={icon}
-              checkedIcon={checkedIcon}
-              style={{ marginRight: 8 }}
-              checked={
-                (defaultValueIndex !== -1 &&
-                  categories[defaultValueIndex].id === option.id) ||
-                selected
-              }
-              disabled={
-                defaultValueIndex !== -1 &&
-                categories[defaultValueIndex].id === option.id
-              }
+    return (
+      <div>
+        <Autocomplete
+          multiple
+          id="filter-categories"
+          options={categories}
+          getOptionLabel={(option) => option.title}
+          disableCloseOnSelect
+          limitTags={3}
+          defaultValue={
+            defaultValueIndex ? [categories[defaultValueIndex]] : undefined
+          }
+          onChange={(event, value) => selectCategory(value)}
+          renderOption={(option, { selected }) => (
+            <React.Fragment>
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={selected}
+              />
+              {option.title}
+            </React.Fragment>
+          )}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="outlined"
+              label="Filter by Category"
+              placeholder="Basketball"
             />
-            {option.title}
-          </React.Fragment>
-        )}
-        //   style={{ width: 500 }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label="Filter by Category"
-            placeholder="Basketball"
-          />
-        )}
-      />
-    </div>
-  );
-
+          )}
+        />
+      </div>
+    );
+  }
   return <></>;
 };
 
