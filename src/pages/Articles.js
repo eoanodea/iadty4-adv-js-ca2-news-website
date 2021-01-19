@@ -6,13 +6,13 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:25:45 pm
+ * Last Modified: Tuesday, 19th January 2021 1:31:20 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 
 import Loading from "../components/global/Loading";
 import EmptyState from "../components/global/Error";
@@ -33,11 +33,7 @@ const Articles = () => {
   const [error, setError] = React.useState("");
   const [defaultValueIndex, setDefaultValueIndex] = React.useState(0);
 
-  useEffect(() => {
-    load();
-  }, []);
-
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true);
     listArticles().then((data) => {
       if (!data || data.errors) {
@@ -72,7 +68,11 @@ const Articles = () => {
       setCategories(data);
       setLoading(false);
     });
-  };
+  }, []);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   const selectCategory = (categories) => setFilters(categories);
 

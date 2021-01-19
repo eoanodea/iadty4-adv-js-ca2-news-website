@@ -6,13 +6,13 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:27:16 pm
+ * Last Modified: Tuesday, 19th January 2021 1:32:00 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 
 import { show } from "./../api/api-article";
 
@@ -37,11 +37,7 @@ const Article = ({ match }) => {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
 
-  useEffect(() => {
-    load();
-  });
-
-  const load = () => {
+  const load = useCallback(() => {
     setLoading(true);
     const { id } = match.params;
     console.log("id!!", id);
@@ -56,7 +52,11 @@ const Article = ({ match }) => {
       setArticle(data);
       setLoading(false);
     });
-  };
+  }, [match]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
 
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
