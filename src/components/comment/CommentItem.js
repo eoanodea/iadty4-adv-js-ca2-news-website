@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:26:30 pm
+ * Last Modified: Thursday, 21st January 2021 3:11:49 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -31,7 +31,6 @@ import { show } from "../../api/api-comment";
 import auth from "../../helpers/auth-helper";
 
 import EmptyState from "../global/EmptyState";
-import Loading from "../global/Loading";
 
 const styles = ({ palette, spacing }) =>
   createStyles({
@@ -86,7 +85,8 @@ const CommentItem = ({ classes, comment }) => {
           avatar={
             <Avatar color="secondary" className={classes.avatar}>
               {fullComment.user.name[0]}
-              {fullComment.user.name.split(" ")[1][0]}
+              {fullComment.user.name.split(" ").length > 1 &&
+                fullComment.user.name.split(" ")[1][0]}
             </Avatar>
           }
           title={fullComment.user.name}

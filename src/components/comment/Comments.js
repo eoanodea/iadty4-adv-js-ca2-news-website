@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:11:56 pm
+ * Last Modified: Thursday, 21st January 2021 3:09:26 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -20,8 +20,9 @@ import auth from "../../helpers/auth-helper";
 
 import CommentItem from "./CommentItem";
 import EmptyState from "../global/EmptyState";
+import AddComment from "./AddComment";
 
-const Comments = ({ comments, history }) => {
+const Comments = ({ comments, history, articleId, addComment }) => {
   const login = () => {
     history.push(`/login${window.location.pathname}`);
   };
@@ -31,7 +32,15 @@ const Comments = ({ comments, history }) => {
     <React.Fragment>
       <Typography variant="h3">Comments</Typography>
       {hasAuth ? (
-        comments.map((comment, i) => <CommentItem key={i} comment={comment} />)
+        <React.Fragment>
+          <AddComment
+            articleId={articleId}
+            addComment={(comment) => addComment(comment)}
+          />
+          {comments.map((comment, i) => (
+            <CommentItem key={i} comment={comment} />
+          ))}
+        </React.Fragment>
       ) : (
         <EmptyState
           message="Please login to view comments"

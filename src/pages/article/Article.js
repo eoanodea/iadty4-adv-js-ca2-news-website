@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:35:55 pm
+ * Last Modified: Thursday, 21st January 2021 3:28:37 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -51,6 +51,8 @@ const Article = ({ match }) => {
         );
       }
       setError("");
+      // let article = data
+      // article.comments.sort()
       setArticle(data);
       setLoading(false);
     });
@@ -59,6 +61,15 @@ const Article = ({ match }) => {
   useEffect(() => {
     load();
   }, [load]);
+
+  const addComment = (comment) => {
+    console.log("add comment!", comment);
+
+    setArticle((old) => {
+      old.comments.push(comment);
+      return old;
+    });
+  };
 
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
@@ -69,7 +80,11 @@ const Article = ({ match }) => {
         Back
       </Button>
       <ArticleItem article={article} />
-      <Comments comments={article.comments} />
+      <Comments
+        articleId={article.id}
+        comments={article.comments}
+        addComment={addComment}
+      />
     </React.Fragment>
   );
 };

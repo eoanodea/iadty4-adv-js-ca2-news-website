@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:02:29 pm
+ * Last Modified: Thursday, 21st January 2021 3:08:02 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -49,6 +49,50 @@ export const show = async (id, token) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+    });
+    return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+/**
+ * Create an Comment
+ *
+ * @param {body: {body: String, article_id: Int}} body
+ */
+export const create = async (body, token) => {
+  try {
+    const response = await fetch(`${prefix}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+    return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+/**
+ * Update an Comment
+ *
+ * @param {body: {body: String, article_id: Int}} body
+ */
+export const update = async (body, token) => {
+  try {
+    const response = await fetch(`${prefix}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
     });
     return response.json();
   } catch (err) {
