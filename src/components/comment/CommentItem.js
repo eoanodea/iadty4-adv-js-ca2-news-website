@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:11:37 pm
+ * Last Modified: Thursday, 21st January 2021 2:26:30 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -23,6 +23,7 @@ import {
   createStyles,
   withStyles,
   CardActions,
+  Grow,
 } from "@material-ui/core";
 
 import { show } from "../../api/api-comment";
@@ -75,28 +76,30 @@ const CommentItem = ({ classes, comment }) => {
     load();
   }, [load]);
 
-  if (loading) return <Loading />;
+  if (loading) return <></>;
   if (error !== "") return <EmptyState message={error} action={load} />;
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={
-          <Avatar color="secondary" className={classes.avatar}>
-            {fullComment.user.name[0]}
-            {fullComment.user.name.split(" ")[1][0]}
-          </Avatar>
-        }
-        title={fullComment.user.name}
-        subheader={new Date(comment.created_at).toDateString()}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {comment.body}
-        </Typography>
-      </CardContent>
-      <CardActions></CardActions>
-    </Card>
+    <Grow in={true}>
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            <Avatar color="secondary" className={classes.avatar}>
+              {fullComment.user.name[0]}
+              {fullComment.user.name.split(" ")[1][0]}
+            </Avatar>
+          }
+          title={fullComment.user.name}
+          subheader={new Date(comment.created_at).toDateString()}
+        />
+        <CardContent>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {comment.body}
+          </Typography>
+        </CardContent>
+        <CardActions></CardActions>
+      </Card>
+    </Grow>
   );
 };
 

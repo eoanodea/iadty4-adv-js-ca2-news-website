@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:26:17 pm
+ * Last Modified: Thursday, 21st January 2021 2:25:45 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -19,7 +19,7 @@ import { Grid } from "@material-ui/core";
 import Header from "../components/layout/Header";
 
 import routes from "./routes";
-import Articles from "../pages/Articles";
+import Articles from "../pages/article/Articles";
 
 const MainRouter = () => {
   return (

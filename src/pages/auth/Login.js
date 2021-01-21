@@ -1,12 +1,12 @@
 /**
- * File: Register.js
+ * File: Login.js
  * Project: ca2-client
  * Version 0.1.0
  * File Created: Tuesday, 5th January 2021 1:58:06 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:34:17 pm
+ * Last Modified: Thursday, 21st January 2021 2:24:35 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -27,8 +27,8 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { Check, Error } from "@material-ui/icons";
-import { register } from "../api/api-auth";
-import auth from "../helpers/auth-helper";
+import { login } from "../../api/api-auth";
+import auth from "../../helpers/auth-helper";
 
 const styles = ({ spacing }) =>
   createStyles({
@@ -37,9 +37,7 @@ const styles = ({ spacing }) =>
     },
   });
 
-const Register = ({ classes, history }) => {
-  const [name, setName] = React.useState("");
-  const [nameError, setNameError] = React.useState("");
+const Login = ({ classes, history }) => {
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -49,11 +47,6 @@ const Register = ({ classes, history }) => {
 
   const handleValidation = () => {
     let passed = true;
-
-    if (name.length < 3) {
-      setNameError("Name must be at least 3 characters");
-      passed = false;
-    }
 
     if (email.length < 3) {
       setEmailError("Email must be at least 3 characters");
@@ -74,14 +67,19 @@ const Register = ({ classes, history }) => {
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
-      register({ name, email, password }).then((data) => {
+      login({ email, password }).then((data) => {
         if (data.errors) {
           setLoading(false);
           return setError(Object.values(data.errors)[0][0]);
         }
         setError("");
         auth.setUserDetails(data.data, (success) => {
-          if (success) return history.push("/profile");
+          if (success) {
+            if (window.location.pathname.includes("login/")) {
+              return history.push(window.location.pathname.split("login")[1]);
+            }
+            return history.push("/profile");
+          }
           setError("The system encountered an error, please try again later");
         });
       });
@@ -90,23 +88,12 @@ const Register = ({ classes, history }) => {
 
   return (
     <Card elevation={3} className={classes.wrapper}>
-      <CardHeader title="Register" />
+      <CardHeader title="Login" />
       <CardContent>
-        <TextField
-          name="name"
-          label="Name"
-          autoFocus={true}
-          margin="normal"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
-          error={nameError !== ""}
-          helperText={nameError}
-        />
-
         <TextField
           name="email"
           label="Email"
+          autoFocus={true}
           margin="normal"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -147,11 +134,11 @@ const Register = ({ classes, history }) => {
           disabled={loading}
           endIcon={loading ? <CircularProgress size={18} /> : <Check />}
         >
-          Register
+          Login
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default withStyles(styles)(Register);
+export default withStyles(styles)(Login);

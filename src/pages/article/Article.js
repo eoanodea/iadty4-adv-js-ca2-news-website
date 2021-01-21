@@ -6,21 +6,23 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:10:58 pm
+ * Last Modified: Thursday, 21st January 2021 2:35:55 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React, { useEffect, useCallback } from "react";
-import { createStyles, withStyles } from "@material-ui/core";
+import { Button, createStyles, withStyles } from "@material-ui/core";
 
-import { show } from "./../api/api-article";
+import { show } from "../../api/api-article";
 
-import Loading from "../components/global/Loading";
-import EmptyState from "../components/global/EmptyState";
-import ArticleItem from "../components/article/ArticleItem";
-import Comments from "../components/comment/Comments";
+import Loading from "../../components/global/Loading";
+import EmptyState from "../../components/global/EmptyState";
+import ArticleItem from "../../components/article/ArticleItem";
+import Comments from "../../components/comment/Comments";
+import { Link } from "react-router-dom";
+import { ArrowBack } from "@material-ui/icons";
 
 const styles = ({ palette, spacing }) =>
   createStyles({
@@ -40,7 +42,7 @@ const Article = ({ match }) => {
   const load = useCallback(() => {
     setLoading(true);
     const { id } = match.params;
-    console.log("id!!", id);
+
     show(id).then((data) => {
       if (!data || data.errors) {
         setLoading(false);
@@ -63,6 +65,9 @@ const Article = ({ match }) => {
 
   return (
     <React.Fragment>
+      <Button component={Link} to="/" startIcon={<ArrowBack />}>
+        Back
+      </Button>
       <ArticleItem article={article} />
       <Comments comments={article.comments} />
     </React.Fragment>

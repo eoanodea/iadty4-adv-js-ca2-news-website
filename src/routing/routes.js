@@ -6,17 +6,17 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 15th January 2021 4:43:53 pm
+ * Last Modified: Thursday, 21st January 2021 2:25:21 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-import Login from "../pages/Login";
-import Profile from "../pages/Profile";
-import Register from "../pages/Register";
-import Article from "../pages/Article";
-import Articles from "../pages/Articles";
+import Login from "../pages/auth/Login";
+import Profile from "../pages/auth/Profile";
+import Register from "../pages/auth/Register";
+import Article from "../pages/article/Article";
+import Articles from "../pages/article/Articles";
 
 const routes = [
   {

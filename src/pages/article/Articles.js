@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:07:55 pm
+ * Last Modified: Thursday, 21st January 2021 2:32:59 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,13 +14,13 @@
 
 import React, { useEffect, useCallback } from "react";
 
-import Loading from "../components/global/Loading";
-import EmptyState from "../components/global/EmptyState";
-import FilterCategories from "../components/category/FilterCategories";
-import ArticleItem from "../components/article/ArticleItem";
+import Loading from "../../components/global/Loading";
+import EmptyState from "../../components/global/EmptyState";
+import FilterCategories from "../../components/category/FilterCategories";
+import ArticleItem from "../../components/article/ArticleItem";
 
-import { list as listArticles } from "./../api/api-article";
-import { list as listCategories } from "./../api/api-categories";
+import { list as listArticles } from "../../api/api-article";
+import { list as listCategories } from "../../api/api-categories";
 
 import { Typography } from "@material-ui/core";
 
@@ -111,9 +111,9 @@ const Articles = () => {
           return (
             <ArticleItem
               key={i}
+              delay={(i + 1) * 500}
               article={article}
               link={`/article/${article.id}`}
-              contentLimit={50}
             />
           );
         })}
