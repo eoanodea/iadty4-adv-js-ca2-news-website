@@ -35,7 +35,12 @@ const styles = ({ spacing }) =>
  * Renders an Error
  *  for the application
  */
-const EmptyState = ({ message, classes, action }) => (
+const EmptyState = ({
+  message,
+  classes,
+  action,
+  actionLabel = "Try Again",
+}) => (
   <Card elevation={3} className={classes.wrapper}>
     <div className={classes.iconContainer}>
       <Error color="error" className={classes.icon} />
@@ -52,7 +57,7 @@ const EmptyState = ({ message, classes, action }) => (
         endIcon={<Replay />}
         onClick={action}
       >
-        Try again
+        {actionLabel}
       </Button>
     ) : (
       <Button component={Link} to="/" color="primary" variant="contained">

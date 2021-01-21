@@ -6,21 +6,21 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:32:00 pm
+ * Last Modified: Thursday, 21st January 2021 2:10:58 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React, { useEffect, useCallback } from "react";
+import { createStyles, withStyles } from "@material-ui/core";
 
 import { show } from "./../api/api-article";
 
 import Loading from "../components/global/Loading";
-import EmptyState from "../components/global/Error";
+import EmptyState from "../components/global/EmptyState";
 import ArticleItem from "../components/article/ArticleItem";
-
-import { createStyles, withStyles } from "@material-ui/core";
+import Comments from "../components/comment/Comments";
 
 const styles = ({ palette, spacing }) =>
   createStyles({
@@ -64,6 +64,7 @@ const Article = ({ match }) => {
   return (
     <React.Fragment>
       <ArticleItem article={article} />
+      <Comments comments={article.comments} />
     </React.Fragment>
   );
 };

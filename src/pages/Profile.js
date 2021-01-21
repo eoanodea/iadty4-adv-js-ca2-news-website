@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:34:17 pm
+ * Last Modified: Thursday, 21st January 2021 1:52:47 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -34,7 +34,7 @@ import {
 } from "@material-ui/icons";
 import auth from "../helpers/auth-helper";
 import Loading from "../components/global/Loading";
-import EmptyState from "../components/global/Error";
+import EmptyState from "../components/global/EmptyState";
 import { logout } from "../api/api-auth";
 
 const styles = ({ spacing }) =>

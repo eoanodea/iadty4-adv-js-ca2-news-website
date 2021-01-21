@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 12th January 2021 1:34:17 pm
+ * Last Modified: Thursday, 21st January 2021 2:00:46 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -74,7 +74,12 @@ const Login = ({ classes, history }) => {
         }
         setError("");
         auth.setUserDetails(data.data, (success) => {
-          if (success) return history.push("/profile");
+          if (success) {
+            if (window.location.pathname.includes("login/")) {
+              return history.push(window.location.pathname.split("login")[1]);
+            }
+            return history.push("/profile");
+          }
           setError("The system encountered an error, please try again later");
         });
       });

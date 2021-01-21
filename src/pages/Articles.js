@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:53:06 pm
+ * Last Modified: Thursday, 21st January 2021 2:07:55 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -15,14 +15,14 @@
 import React, { useEffect, useCallback } from "react";
 
 import Loading from "../components/global/Loading";
-import EmptyState from "../components/global/Error";
+import EmptyState from "../components/global/EmptyState";
 import FilterCategories from "../components/category/FilterCategories";
 import ArticleItem from "../components/article/ArticleItem";
 
 import { list as listArticles } from "./../api/api-article";
 import { list as listCategories } from "./../api/api-categories";
 
-import { CardHeader } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 
 const Articles = () => {
   const [title, setTitle] = React.useState("Articles");
@@ -89,7 +89,8 @@ const Articles = () => {
 
   return (
     <React.Fragment>
-      <CardHeader title={title} />
+      <Typography variant="h3">{title}</Typography>
+
       <FilterCategories
         defaultValueIndex={defaultValueIndex}
         categories={categories}
