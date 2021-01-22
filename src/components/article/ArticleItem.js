@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:37:09 pm
+ * Last Modified: Friday, 22nd January 2021 3:29:30 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -26,6 +26,7 @@ import {
   Divider,
   Chip,
   Grow,
+  Zoom,
 } from "@material-ui/core";
 import ArticleActionArea from "./ArticleActionArea";
 import { AccountCircleOutlined, LocalOffer } from "@material-ui/icons";
@@ -51,7 +52,7 @@ const styles = ({ palette, spacing }) =>
   });
 
 const ArticleItem = ({ classes, article, link = null, delay = 0 }) => (
-  <Grow in={true} timeout={{ enter: delay }}>
+  <Zoom in={true} style={{ transitionDelay: `${delay}ms` }}>
     <Card className={classes.card}>
       <ArticleActionArea link={link}>
         <CardHeader
@@ -83,7 +84,7 @@ const ArticleItem = ({ classes, article, link = null, delay = 0 }) => (
         <CardActions></CardActions>
       </ArticleActionArea>
     </Card>
-  </Grow>
+  </Zoom>
 );
 
 export default withStyles(styles)(ArticleItem);

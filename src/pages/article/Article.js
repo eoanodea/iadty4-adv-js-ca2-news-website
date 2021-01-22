@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 3:28:37 pm
+ * Last Modified: Friday, 22nd January 2021 3:48:58 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -36,6 +36,7 @@ const styles = ({ palette, spacing }) =>
 
 const Article = ({ match }) => {
   const [article, setArticle] = React.useState([]);
+  const [comments, setComments] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
 
@@ -44,15 +45,19 @@ const Article = ({ match }) => {
     const { id } = match.params;
 
     show(id).then((data) => {
-      if (!data || data.errors) {
+      if (!data || data.errors || data.exception) {
         setLoading(false);
+
         return setError(
-          data ? Object.values(data.errors)[0][0] : "Could not load data"
+          data && data.errors
+            ? Object.values(data.errors)[0][0]
+            : "Could not load data"
         );
       }
       setError("");
-      // let article = data
-      // article.comments.sort()
+
+      setComments(data.comments.reverse());
+      delete data.comments;
       setArticle(data);
       setLoading(false);
     });
@@ -62,14 +67,7 @@ const Article = ({ match }) => {
     load();
   }, [load]);
 
-  const addComment = (comment) => {
-    console.log("add comment!", comment);
-
-    setArticle((old) => {
-      old.comments.push(comment);
-      return old;
-    });
-  };
+  const addComment = (comment) => setComments((old) => [comment, ...old]);
 
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
@@ -82,7 +80,7 @@ const Article = ({ match }) => {
       <ArticleItem article={article} />
       <Comments
         articleId={article.id}
-        comments={article.comments}
+        comments={comments}
         addComment={addComment}
       />
     </React.Fragment>

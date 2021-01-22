@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 2:32:59 pm
+ * Last Modified: Friday, 22nd January 2021 3:29:44 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -36,10 +36,12 @@ const Articles = () => {
   const load = useCallback(() => {
     setLoading(true);
     listArticles().then((data) => {
-      if (!data || data.errors) {
+      if (!data || data.errors || data.exception) {
         setLoading(false);
         return setError(
-          data ? Object.values(data.errors)[0][0] : "Could not load data"
+          data && data.errors
+            ? Object.values(data.errors)[0][0]
+            : "Could not load data"
         );
       }
       setError("");
@@ -47,11 +49,13 @@ const Articles = () => {
     });
 
     listCategories().then((data) => {
-      if (!data || data.errors) {
+      if (!data || data.errors || data.exception) {
         setLoading(false);
 
         return setError(
-          data ? Object.values(data.errors)[0][0] : "Could not load data"
+          data && data.errors
+            ? Object.values(data.errors)[0][0]
+            : "Could not load data"
         );
       }
       setError("");
@@ -111,7 +115,7 @@ const Articles = () => {
           return (
             <ArticleItem
               key={i}
-              delay={(i + 1) * 500}
+              delay={(i + 1) * 100}
               article={article}
               link={`/article/${article.id}`}
             />
