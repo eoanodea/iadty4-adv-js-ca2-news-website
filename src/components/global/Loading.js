@@ -8,7 +8,7 @@ import React from "react";
  */
 import { CircularProgress, withStyles, createStyles } from "@material-ui/core";
 
-const styles = ({ palette }) =>
+const styles = () =>
   createStyles({
     progressWrapper: {
       minHeight: "-webkit-fill-available",

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 3:29:44 pm
+ * Last Modified: Friday, 22nd January 2021 3:52:38 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -115,7 +115,7 @@ const Articles = () => {
           return (
             <ArticleItem
               key={i}
-              delay={(i + 1) * 100}
+              delay={(i + 1) * 200}
               article={article}
               link={`/article/${article.id}`}
             />

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 3:08:02 pm
+ * Last Modified: Friday, 22nd January 2021 5:36:30 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -83,10 +83,10 @@ export const create = async (body, token) => {
  *
  * @param {body: {body: String, article_id: Int}} body
  */
-export const update = async (body, token) => {
+export const update = async (id, body, token) => {
   try {
-    const response = await fetch(`${prefix}`, {
-      method: "POST",
+    const response = await fetch(`${prefix}/${id}`, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

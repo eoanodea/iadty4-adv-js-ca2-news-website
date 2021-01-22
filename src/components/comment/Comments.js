@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 3:45:30 pm
+ * Last Modified: Friday, 22nd January 2021 5:04:12 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -37,6 +37,7 @@ const Comments = ({ comments, history, articleId, addComment }) => {
             articleId={articleId}
             addComment={(comment) => addComment(comment)}
           />
+
           {comments.map((comment, i) => (
             <CommentItem key={comment.id} comment={comment} />
           ))}

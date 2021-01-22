@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 21st January 2021 3:09:26 pm
+ * Last Modified: Friday, 22nd January 2021 5:22:31 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,7 +14,6 @@
 
 import React from "react";
 import {
-  Typography,
   Card,
   withStyles,
   createStyles,
@@ -22,9 +21,8 @@ import {
   TextField,
   CircularProgress,
   CardActions,
-  CardContent,
 } from "@material-ui/core";
-import { Check, Error } from "@material-ui/icons";
+import { Check } from "@material-ui/icons";
 
 import { create } from "../../api/api-comment";
 import auth from "../../helpers/auth-helper";
@@ -97,16 +95,6 @@ const AddComment = ({ classes, articleId, addComment }) => {
         helperText={commentError}
         multiline
       />
-      {/* <br />
-        {error !== "" && (
-          <Typography
-            component="p"
-            color="error"
-            style={{ textAlign: "center" }}
-          >
-            <Error color="error" className={classes.error} />
-            {error}
-          </Typography> */}
       <CardActions className={classes.actions}>
         <Button
           color="secondary"

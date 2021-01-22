@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 3:29:30 pm
+ * Last Modified: Friday, 22nd January 2021 5:35:16 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -24,13 +24,9 @@ import {
   withStyles,
   CardActions,
   Divider,
-  Chip,
-  Grow,
   Zoom,
 } from "@material-ui/core";
 import ArticleActionArea from "./ArticleActionArea";
-import { AccountCircleOutlined, LocalOffer } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 import ArticleDetails from "./ArticleDetails";
 
 const styles = ({ palette, spacing }) =>
