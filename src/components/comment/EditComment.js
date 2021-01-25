@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 5:46:03 pm
+ * Last Modified: Monday, 25th January 2021 3:05:27 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,19 +14,17 @@
 
 import React from "react";
 import {
-  Card,
   withStyles,
   createStyles,
   Button,
   TextField,
   CircularProgress,
-  CardActions,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import { Check, TextFields } from "@material-ui/icons";
+import { Check } from "@material-ui/icons";
 
 import { update } from "../../api/api-comment";
 import auth from "../../helpers/auth-helper";
@@ -46,17 +44,6 @@ const EditComment = ({ open, comment, updateComment, handleClose }) => {
   const [newComment, setNewComment] = React.useState(comment.body);
   const [commentError, setCommentError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  // const [error, setError] = React.useState("");
-
-  //   const [open, setOpen] = React.useState(false);
-
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
-
-  //   const handleClose = () => {
-  //     setOpen(false);
-  //   };
 
   const handleValidation = () => {
     let passed = true;
@@ -86,15 +73,6 @@ const EditComment = ({ open, comment, updateComment, handleClose }) => {
         setLoading(false);
 
         updateComment(data.body);
-        //   setComment("");
-        //   addComment(data);
-        // auth.setUserDetails(data.data, (success) => {
-        //   if (success) {
-
-        // return history.push("/profile");
-        //   }
-        //   setError("The system encountered an error, please try again later");
-        // });
       });
     }
   };
