@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 3:05:27 pm
+ * Last Modified: Monday, 25th January 2021 4:11:09 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -35,12 +35,21 @@ const styles = ({ spacing }) =>
       padding: spacing(1),
       margin: `${spacing(2)}px 0`,
     },
+    editTextfield: {
+      width: "300px",
+    },
     actions: {
       justifyContent: "flex-end",
     },
   });
 
-const EditComment = ({ open, comment, updateComment, handleClose }) => {
+const EditComment = ({
+  open,
+  comment,
+  updateComment,
+  handleClose,
+  classes,
+}) => {
   const [newComment, setNewComment] = React.useState(comment.body);
   const [commentError, setCommentError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -90,6 +99,7 @@ const EditComment = ({ open, comment, updateComment, handleClose }) => {
           label="Edit comment"
           autoFocus
           margin="normal"
+          className={classes.editTextfield}
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && submit()}
@@ -117,31 +127,6 @@ const EditComment = ({ open, comment, updateComment, handleClose }) => {
         </Button>
       </DialogActions>
     </Dialog>
-    // <Card className={classes.root}>
-    //   <TextField
-    //     name="comment"
-    //     label="Add a comment"
-    //     autoFocus={true}
-    //     margin="normal"
-    //     value={comment}
-    //     onChange={(e) => setComment(e.target.value)}
-    //     onKeyDown={(e) => e.key === "Enter" && submit()}
-    //     error={commentError !== ""}
-    //     helperText={commentError}
-    //     multiline
-    //   />
-    //   <CardActions className={classes.actions}>
-    //     <Button
-    //       color="secondary"
-    //       variant="contained"
-    //       onClick={submit}
-    //       disabled={loading}
-    //       endIcon={loading ? <CircularProgress size={18} /> : <Check />}
-    //     >
-    //       Post
-    //     </Button>
-    //   </CardActions>
-    // </Card>
   );
 };
 

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 5:04:12 pm
+ * Last Modified: Monday, 25th January 2021 3:33:49 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -22,7 +22,13 @@ import CommentItem from "./CommentItem";
 import EmptyState from "../global/EmptyState";
 import AddComment from "./AddComment";
 
-const Comments = ({ comments, history, articleId, addComment }) => {
+const Comments = ({
+  comments,
+  history,
+  articleId,
+  addComment,
+  removeComment,
+}) => {
   const login = () => {
     history.push(`/login${window.location.pathname}`);
   };
@@ -39,7 +45,11 @@ const Comments = ({ comments, history, articleId, addComment }) => {
           />
 
           {comments.map((comment, i) => (
-            <CommentItem key={comment.id} comment={comment} />
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              removeComment={removeComment}
+            />
           ))}
         </React.Fragment>
       ) : (

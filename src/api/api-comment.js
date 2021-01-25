@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 5:36:30 pm
+ * Last Modified: Monday, 25th January 2021 3:54:18 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -95,6 +95,28 @@ export const update = async (id, body, token) => {
       body: JSON.stringify(body),
     });
     return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+/**
+ * Removes a comment by ID
+ *
+ * @param {id: String}
+ * @param {token: String}
+ */
+export const remove = async (id, token) => {
+  try {
+    const response = await fetch(`${prefix}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.status;
   } catch (err) {
     return console.log(err);
   }

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 5:22:31 pm
+ * Last Modified: Monday, 25th January 2021 3:35:37 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -69,13 +69,6 @@ const AddComment = ({ classes, articleId, addComment }) => {
           setLoading(false);
           setComment("");
           addComment(data);
-          // auth.setUserDetails(data.data, (success) => {
-          //   if (success) {
-
-          // return history.push("/profile");
-          //   }
-          //   setError("The system encountered an error, please try again later");
-          // });
         }
       );
     }

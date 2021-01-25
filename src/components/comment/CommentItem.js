@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 5:51:24 pm
+ * Last Modified: Monday, 25th January 2021 4:09:21 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -38,6 +38,7 @@ import auth from "../../helpers/auth-helper";
 import EmptyState from "../global/EmptyState";
 import { Create, Delete, MoreVert } from "@material-ui/icons";
 import EditComment from "./EditComment";
+import DeleteComment from "./DeleteComment";
 
 const styles = ({ palette, spacing }) =>
   createStyles({
@@ -57,12 +58,13 @@ const styles = ({ palette, spacing }) =>
     },
   });
 
-const CommentItem = ({ classes, comment }) => {
+const CommentItem = ({ classes, comment, removeComment }) => {
   const [fullComment, setFullComment] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
   const [displayActions, setDisplayActions] = React.useState(false);
   const open = Boolean(anchorEl);
 
@@ -74,9 +76,13 @@ const CommentItem = ({ classes, comment }) => {
     setAnchorEl(null);
   };
 
-  const updateComment = (body) => {
-    // console.log("updated!", newComment);
+  const deleteComment = (id) => {
+    handleClose();
+    removeComment(id);
+  };
 
+  const updateComment = (body) => {
+    handleClose();
     setFullComment((old) => {
       let newComment = old;
       newComment.body = body;
@@ -84,6 +90,16 @@ const CommentItem = ({ classes, comment }) => {
     });
     setOpenEditDialog(false);
   };
+
+  // const deleteComment = (id) => {
+  //   console.log("hello!", id);
+  // setFullComment((old) => {
+  //   console.log("old!", old);
+  //   const items = old.filter((item) => item.id !== id);
+
+  //   return { ...items };
+  // });
+  // };
 
   const load = useCallback(() => {
     setLoading(true);
@@ -148,7 +164,7 @@ const CommentItem = ({ classes, comment }) => {
                     </ListItemIcon>
                     <ListItemText primary="Edit" />
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={() => setOpenDeleteDialog(true)}>
                     <ListItemIcon>
                       <Delete />
                     </ListItemIcon>
@@ -170,6 +186,12 @@ const CommentItem = ({ classes, comment }) => {
           comment={fullComment}
           handleClose={setOpenEditDialog}
           updateComment={updateComment}
+        />
+        <DeleteComment
+          open={openDeleteDialog}
+          comment={fullComment}
+          handleClose={setOpenDeleteDialog}
+          deleteComment={deleteComment}
         />
       </Card>
     </Grow>
