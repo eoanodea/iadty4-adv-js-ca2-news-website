@@ -6,25 +6,14 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:17:36 pm
+ * Last Modified: Monday, 25th January 2021 7:08:51 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  Typography,
-  createStyles,
-  withStyles,
-  CardActions,
-  Divider,
-  Chip,
-} from "@material-ui/core";
-import ArticleActionArea from "./ArticleActionArea";
+import { createStyles, withStyles, Chip } from "@material-ui/core";
+
 import { AccountCircleOutlined, LocalOffer } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
