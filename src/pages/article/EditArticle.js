@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 6:05:19 pm
+ * Last Modified: Monday, 25th January 2021 6:32:38 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -32,7 +32,7 @@ import { list } from "../../api/api-categories";
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
 
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowBack, Check } from "@material-ui/icons";
 import auth from "../../helpers/auth-helper";
 
@@ -59,51 +59,51 @@ const EditArticle = ({ match, history, classes }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
 
-  const loadCategories = useCallback(() => {
-    list().then((data) => {
-      if (!data || data.errors || data.exception) {
-        setLoadingCategories(false);
-
-        return setError(
-          data && data.errors
-            ? Object.values(data.errors)[0][0]
-            : "Could not load data"
-        );
-      }
-
-      setLoadingCategories(false);
-      setError("");
-      setCategories(data);
-    });
-  }, []);
+  // const loadCategories = useCallback(() => {}, []);
 
   const load = useCallback(() => {
     const { id } = match.params;
 
     show(id).then((data) => {
       if (!data || data.errors || data.exception) {
-        setLoadingCategories(false);
-
-        return setError(
+        setError(
           data && data.errors
             ? Object.values(data.errors)[0][0]
             : "Could not load data"
         );
+
+        return setLoadingCategories(false);
       }
 
-      setError("");
       setTitle(data.title);
       setBody(data.body);
       setId(data.id);
-      setSelectedCategory(data.category);
-      setLoadingCategories(false);
+
+      const categoryId = data.category_id;
+
+      list().then((data) => {
+        if (!data || data.errors || data.exception) {
+          setError(
+            data && data.errors
+              ? Object.values(data.errors)[0][0]
+              : "Could not load data"
+          );
+
+          return setLoadingCategories(false);
+        }
+        const categoryI = data.findIndex((item) => item.id === categoryId);
+        setCategories(data);
+        setSelectedCategory(data[categoryI]);
+
+        setLoadingCategories(false);
+        setError("");
+      });
     });
   }, [match]);
 
   useEffect(() => {
     load();
-    loadCategories();
-  }, [load, loadCategories]);
+  }, [load]);
 
   const handleValidation = () => {
     let passed = true;
@@ -146,8 +146,7 @@ const EditArticle = ({ match, history, classes }) => {
   };
 
   if (loadingCategories) return <Loading />;
-  if (error !== "")
-    return <EmptyState message={error} action={loadCategories} />;
+  if (error !== "") return <EmptyState message={error} action={load} />;
 
   return (
     <React.Fragment>

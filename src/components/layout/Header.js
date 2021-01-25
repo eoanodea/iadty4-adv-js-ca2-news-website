@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 15th January 2021 3:54:15 pm
+ * Last Modified: Monday, 25th January 2021 6:34:41 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -33,10 +33,13 @@ import { Link } from "react-router-dom";
 import routes from "./../../routing/routes";
 import auth from "../../helpers/auth-helper";
 
-const styles = () =>
+const styles = ({ palette }) =>
   createStyles({
     root: {
       justifyContent: "space-between",
+      "& a": {
+        color: "#fff",
+      },
     },
   });
 
@@ -62,7 +65,7 @@ const Header = ({ history, classes }) => {
     <AppBar position="static">
       <Toolbar className={classes.root}>
         <Button component={Link} to="/">
-          {/* Adv JS CA2 */}
+          Adv JS CA2
         </Button>
 
         <div>

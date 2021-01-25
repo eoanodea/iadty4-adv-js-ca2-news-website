@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 5:07:33 pm
+ * Last Modified: Monday, 25th January 2021 6:20:55 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -32,7 +32,7 @@ import { list } from "../../api/api-categories";
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
 
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowBack, Check } from "@material-ui/icons";
 import auth from "../../helpers/auth-helper";
 
@@ -50,7 +50,7 @@ const CreateArticle = ({ history, classes }) => {
   const [body, setBody] = React.useState("");
   const [bodyError, setBodyError] = React.useState("");
 
-  const [selectedCategory, setSelectedCategory] = React.useState(0);
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [categories, setCategories] = React.useState([]);
 
   const [loadingCategories, setLoadingCategories] = React.useState(true);
@@ -69,10 +69,10 @@ const CreateArticle = ({ history, classes }) => {
         );
       }
 
-      setLoadingCategories(false);
-      setError("");
       setCategories(data);
       setSelectedCategory(data[0]);
+      setError("");
+      setLoadingCategories(false);
     });
   }, []);
 
@@ -111,8 +111,6 @@ const CreateArticle = ({ history, classes }) => {
             );
           }
           history.push(`/article/${data.id}`);
-          // setLoading(false);
-          // setComment("");
         }
       );
     }
