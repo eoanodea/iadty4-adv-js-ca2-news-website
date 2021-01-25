@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:57:25 pm
+ * Last Modified: Monday, 25th January 2021 4:54:12 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -59,13 +59,16 @@ export const show = async (id) => {
  * Create an Article
  *
  * @param {body: {title: String, body: String, category_id: Int}} body
+ * @param {token: String}
  */
-export const create = async (body) => {
+export const create = async (body, token) => {
   try {
     const response = await fetch(`${prefix}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });
@@ -79,13 +82,16 @@ export const create = async (body) => {
  * Update an Article
  *
  * @param {body: {title: String, body: String, category_id: Int}} body
+ * @param {token: String}
  */
-export const update = async (body) => {
+export const update = async (body, token) => {
   try {
     const response = await fetch(`${prefix}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });

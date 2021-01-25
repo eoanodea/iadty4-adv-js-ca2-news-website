@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 4:09:21 pm
+ * Last Modified: Monday, 25th January 2021 4:12:44 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -17,7 +17,6 @@ import {
   withStyles,
   createStyles,
   Button,
-  TextField,
   CircularProgress,
   Dialog,
   DialogTitle,
@@ -27,7 +26,7 @@ import {
   Snackbar,
 } from "@material-ui/core";
 
-import { Check, Close, Delete } from "@material-ui/icons";
+import { Close, Delete } from "@material-ui/icons";
 
 import { remove } from "../../api/api-comment";
 import auth from "../../helpers/auth-helper";
@@ -47,16 +46,6 @@ const DeleteComment = ({ open, comment, deleteComment, handleClose }) => {
   const [commentError, setCommentError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
-  // const handleValidation = () => {
-  //   let passed = true;
-
-  //   if (comment.length < 5) {
-  //     setCommentError("Comment must be at least 5 characters");
-  //     passed = false;
-  //   } else setCommentError("");
-
-  //   return passed;
-  // };
   const submit = () => {
     setLoading(true);
     const jwt = auth.isAuthenticated();

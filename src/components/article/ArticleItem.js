@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 5:35:16 pm
+ * Last Modified: Monday, 25th January 2021 5:16:55 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -55,7 +55,8 @@ const ArticleItem = ({ classes, article, link = null, delay = 0 }) => (
           avatar={
             <Avatar color="secondary" className={classes.avatar}>
               {article.user.name[0]}
-              {article.user.name.split(" ")[1][0]}
+              {article.user.name.split(" ").length > 1 &&
+                article.user.name.split(" ")[1][0]}
             </Avatar>
           }
           title={article.title}

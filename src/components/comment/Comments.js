@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 3:33:49 pm
+ * Last Modified: Monday, 25th January 2021 5:24:23 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -44,13 +44,19 @@ const Comments = ({
             addComment={(comment) => addComment(comment)}
           />
 
-          {comments.map((comment, i) => (
-            <CommentItem
-              key={comment.id}
-              comment={comment}
-              removeComment={removeComment}
-            />
-          ))}
+          {comments.length > 0 ? (
+            comments.map((comment, i) => (
+              <CommentItem
+                key={comment.id}
+                comment={comment}
+                removeComment={removeComment}
+              />
+            ))
+          ) : (
+            <Typography variant="body2" style={{ textAlign: "center" }}>
+              No comments found
+            </Typography>
+          )}
         </React.Fragment>
       ) : (
         <EmptyState

@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 3:35:37 pm
+ * Last Modified: Monday, 25th January 2021 4:50:47 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -61,9 +61,13 @@ const AddComment = ({ classes, articleId, addComment }) => {
 
       create({ body: comment, article_id: articleId }, jwt.token).then(
         (data) => {
-          if (data.errors) {
+          if (!data || data.errors || data.exception) {
             setLoading(false);
-            return setCommentError(Object.values(data.errors)[0][0]);
+            return setCommentError(
+              data && data.errors
+                ? Object.values(data.errors)[0][0]
+                : "Could not create article"
+            );
           }
           setCommentError("");
           setLoading(false);

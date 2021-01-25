@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 3:54:18 pm
+ * Last Modified: Monday, 25th January 2021 4:54:04 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -39,6 +39,7 @@ export const list = async () => {
  * Fetch an comment by ID
  *
  * @param {id: String}
+ * @param {token: String}
  */
 export const show = async (id, token) => {
   try {
@@ -60,6 +61,7 @@ export const show = async (id, token) => {
  * Create an Comment
  *
  * @param {body: {body: String, article_id: Int}} body
+ * @param {token: String}
  */
 export const create = async (body, token) => {
   try {
@@ -81,7 +83,9 @@ export const create = async (body, token) => {
 /**
  * Update an Comment
  *
+ * @param {id: String}
  * @param {body: {body: String, article_id: Int}} body
+ * @param {token: String}
  */
 export const update = async (id, body, token) => {
   try {

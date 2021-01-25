@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 22nd January 2021 3:52:38 pm
+ * Last Modified: Monday, 25th January 2021 5:18:36 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -19,12 +19,25 @@ import EmptyState from "../../components/global/EmptyState";
 import FilterCategories from "../../components/category/FilterCategories";
 import ArticleItem from "../../components/article/ArticleItem";
 
+import auth from "../../helpers/auth-helper";
+
 import { list as listArticles } from "../../api/api-article";
 import { list as listCategories } from "../../api/api-categories";
 
-import { Typography } from "@material-ui/core";
+import { Fab, Typography, withStyles, createStyles } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { Add } from "@material-ui/icons";
 
-const Articles = () => {
+const styles = ({ spacing }) =>
+  createStyles({
+    fab: {
+      position: "fixed",
+      bottom: spacing(2),
+      right: spacing(2),
+    },
+  });
+
+const Articles = ({ classes }) => {
   const [title, setTitle] = React.useState("Articles");
   const [articles, setArticles] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
@@ -32,6 +45,7 @@ const Articles = () => {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
   const [defaultValueIndex, setDefaultValueIndex] = React.useState(null);
+  const isAuthed = auth.isAuthenticated();
 
   const load = useCallback(() => {
     setLoading(true);
@@ -45,7 +59,7 @@ const Articles = () => {
         );
       }
       setError("");
-      setArticles(data);
+      setArticles(data.reverse());
     });
 
     listCategories().then((data) => {
@@ -121,8 +135,20 @@ const Articles = () => {
             />
           );
         })}
+
+      {isAuthed && (
+        <Fab
+          className={classes.fab}
+          component={Link}
+          aria-label="Add Article"
+          color="secondary"
+          to="/articles/new"
+        >
+          <Add />
+        </Fab>
+      )}
     </React.Fragment>
   );
 };
 
-export default Articles;
+export default withStyles(styles)(Articles);
