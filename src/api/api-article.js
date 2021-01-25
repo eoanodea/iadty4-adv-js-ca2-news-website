@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 4:54:12 pm
+ * Last Modified: Monday, 25th January 2021 6:10:54 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -81,13 +81,14 @@ export const create = async (body, token) => {
 /**
  * Update an Article
  *
+ * @param {id: String}
  * @param {body: {title: String, body: String, category_id: Int}} body
  * @param {token: String}
  */
-export const update = async (body, token) => {
+export const update = async (id, body, token) => {
   try {
-    const response = await fetch(`${prefix}`, {
-      method: "POST",
+    const response = await fetch(`${prefix}/${id}`, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -96,6 +97,28 @@ export const update = async (body, token) => {
       body: JSON.stringify(body),
     });
     return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
+
+/**
+ * Removes a article by ID
+ *
+ * @param {id: String}
+ * @param {token: String}
+ */
+export const remove = async (id, token) => {
+  try {
+    const response = await fetch(`${prefix}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.status;
   } catch (err) {
     return console.log(err);
   }

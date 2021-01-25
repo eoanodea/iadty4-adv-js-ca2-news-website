@@ -6,14 +6,16 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 5:09:02 pm
+ * Last Modified: Monday, 25th January 2021 6:15:42 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React, { useEffect, useCallback } from "react";
-import { Button, createStyles, withStyles } from "@material-ui/core";
+import { Button, createStyles, withStyles, Fab } from "@material-ui/core";
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@material-ui/lab";
+import { Add, Delete, Edit } from "@material-ui/icons";
 
 import { show } from "../../api/api-article";
 
@@ -23,6 +25,8 @@ import ArticleItem from "../../components/article/ArticleItem";
 import Comments from "../../components/comment/Comments";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@material-ui/icons";
+import auth from "../../helpers/auth-helper";
+import DeleteArticle from "../../components/article/DeleteArticle";
 
 const styles = ({ palette, spacing }) =>
   createStyles({
@@ -32,17 +36,31 @@ const styles = ({ palette, spacing }) =>
     avatar: {
       background: palette.secondary.main,
     },
+    fab: {
+      position: "fixed",
+      bottom: spacing(2),
+      right: spacing(2),
+
+      "& .MuiFab-primary": {
+        background: palette.secondary.main,
+      },
+    },
   });
 
-const Article = ({ match }) => {
+const Article = ({ history, match, classes }) => {
   const [article, setArticle] = React.useState([]);
   const [comments, setComments] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
+  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+  const [openSpeedDial, setOpenSpeedDial] = React.useState(false);
+  // const isAuthed = auth.isAuthenticated();
+  const [displayActions, setDisplayActions] = React.useState(false);
 
   const load = useCallback(() => {
     setLoading(true);
     const { id } = match.params;
+    const jwt = auth.isAuthenticated();
 
     show(id).then((data) => {
       if (!data || data.errors || data.exception) {
@@ -60,6 +78,7 @@ const Article = ({ match }) => {
         delete data.comments;
       }
       setArticle(data);
+      jwt && jwt.user.id === data.user.id && setDisplayActions(true);
       setLoading(false);
     });
   }, [match]);
@@ -92,6 +111,36 @@ const Article = ({ match }) => {
         comments={comments}
         addComment={addComment}
         removeComment={removeComment}
+      />
+
+      <SpeedDial
+        hidden={!displayActions}
+        className={classes.fab}
+        ariaLabel="Add Article"
+        open={openSpeedDial}
+        onOpen={() => setOpenSpeedDial(true)}
+        onClose={() => setOpenSpeedDial(false)}
+        icon={<SpeedDialIcon />}
+      >
+        <SpeedDialAction
+          component={Link}
+          to={`/articles/edit/${article.id}`}
+          icon={<Edit />}
+          tooltipTitle={"Edit Article"}
+        />
+
+        <SpeedDialAction
+          onClick={() => setOpenDeleteDialog(true)}
+          icon={<Delete />}
+          tooltipTitle={"Delete Article"}
+        />
+      </SpeedDial>
+
+      <DeleteArticle
+        open={openDeleteDialog}
+        article={article}
+        handleClose={setOpenDeleteDialog}
+        history={history}
       />
     </React.Fragment>
   );

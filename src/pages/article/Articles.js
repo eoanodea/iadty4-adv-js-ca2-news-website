@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 5:18:36 pm
+ * Last Modified: Monday, 25th January 2021 5:40:30 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -24,7 +24,7 @@ import auth from "../../helpers/auth-helper";
 import { list as listArticles } from "../../api/api-article";
 import { list as listCategories } from "../../api/api-categories";
 
-import { Fab, Typography, withStyles, createStyles } from "@material-ui/core";
+import { Typography, withStyles, createStyles, Fab } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Add } from "@material-ui/icons";
 
