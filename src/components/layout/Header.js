@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 6:34:41 pm
+ * Last Modified: Monday, 25th January 2021 6:38:37 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -25,6 +25,7 @@ import {
   AppBar,
   Button,
   createStyles,
+  IconButton,
   Toolbar,
   withStyles,
 } from "@material-ui/core";
@@ -70,7 +71,7 @@ const Header = ({ history, classes }) => {
 
         <div>
           <Button component={Link} to="/">
-            Home
+            Articles
           </Button>
           {routes
             .filter((route) => route.authed === isAuthed && route.displayOnNav)
