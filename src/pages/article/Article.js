@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 7:09:31 pm
+ * Last Modified: Tuesday, 26th January 2021 6:04:57 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -105,42 +105,16 @@ const Article = ({ history, match, classes }) => {
       <Button component={Link} to="/" startIcon={<ArrowBack />}>
         Back
       </Button>
-      <ArticleItem article={article} />
+      <ArticleItem
+        article={article}
+        history={history}
+        displayActions={displayActions}
+      />
       <Comments
         articleId={article.id}
         comments={comments}
         addComment={addComment}
         removeComment={removeComment}
-      />
-
-      <SpeedDial
-        hidden={!displayActions}
-        className={classes.fab}
-        ariaLabel="Add Article"
-        open={openSpeedDial}
-        onOpen={() => setOpenSpeedDial(true)}
-        onClose={() => setOpenSpeedDial(false)}
-        icon={<SpeedDialIcon />}
-      >
-        <SpeedDialAction
-          component={Link}
-          to={`/articles/edit/${article.id}`}
-          icon={<Edit />}
-          tooltipTitle={"Edit Article"}
-        />
-
-        <SpeedDialAction
-          onClick={() => setOpenDeleteDialog(true)}
-          icon={<Delete />}
-          tooltipTitle={"Delete Article"}
-        />
-      </SpeedDial>
-
-      <DeleteArticle
-        open={openDeleteDialog}
-        article={article}
-        handleClose={setOpenDeleteDialog}
-        history={history}
       />
     </React.Fragment>
   );

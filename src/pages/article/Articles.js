@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 5:56:12 pm
+ * Last Modified: Tuesday, 26th January 2021 6:07:01 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -73,12 +73,11 @@ const Articles = ({ classes }) => {
       if (window.location.pathname.includes("user")) {
         const userId = parseInt(window.location.pathname.split("user/")[1]);
         const userI = authors.findIndex((user) => user.id === userId);
-        console.log("hello", userId, userI, authors[userI].name);
+
         if (userI !== -1) {
           setDefaultAuthorValueIndex(userI);
-          setTitle(`Articles By ${authors[userI].name}`);
+          setTitle(`Articles by ${authors[userI].name}`);
           setSelectedAuthors([authors[userI]]);
-          // setDefaultAuthorValueIndex([authors[userI]]);
         }
       }
     });
@@ -151,8 +150,6 @@ const Articles = ({ classes }) => {
         authors={authors}
         selectAuthor={selectAuthor}
         defaultValueIndex={defaultAuthorValueIndex}
-        // categories={categories}
-        // selectCategory={selectCategory}
       />
 
       {articles
