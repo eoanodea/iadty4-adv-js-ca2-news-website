@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 5:40:30 pm
+ * Last Modified: Tuesday, 26th January 2021 5:56:12 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -17,6 +17,7 @@ import React, { useEffect, useCallback } from "react";
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
 import FilterCategories from "../../components/category/FilterCategories";
+import FilterAuthors from "../../components/author/FilterAuthors";
 import ArticleItem from "../../components/article/ArticleItem";
 
 import auth from "../../helpers/auth-helper";
@@ -40,11 +41,16 @@ const styles = ({ spacing }) =>
 const Articles = ({ classes }) => {
   const [title, setTitle] = React.useState("Articles");
   const [articles, setArticles] = React.useState([]);
+  const [authors, setAuthors] = React.useState([]);
+  const [selectedAuthors, setSelectedAuthors] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [filters, setFilters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
   const [defaultValueIndex, setDefaultValueIndex] = React.useState(null);
+  const [defaultAuthorValueIndex, setDefaultAuthorValueIndex] = React.useState(
+    null
+  );
   const isAuthed = auth.isAuthenticated();
 
   const load = useCallback(() => {
@@ -59,7 +65,22 @@ const Articles = ({ classes }) => {
         );
       }
       setError("");
-      setArticles(data.reverse());
+      const articles = data.reverse();
+      const authors = articles.map((article) => article.user);
+      setArticles(data);
+      setAuthors(authors);
+
+      if (window.location.pathname.includes("user")) {
+        const userId = parseInt(window.location.pathname.split("user/")[1]);
+        const userI = authors.findIndex((user) => user.id === userId);
+        console.log("hello", userId, userI, authors[userI].name);
+        if (userI !== -1) {
+          setDefaultAuthorValueIndex(userI);
+          setTitle(`Articles By ${authors[userI].name}`);
+          setSelectedAuthors([authors[userI]]);
+          // setDefaultAuthorValueIndex([authors[userI]]);
+        }
+      }
     });
 
     listCategories().then((data) => {
@@ -83,6 +104,7 @@ const Articles = ({ classes }) => {
         categoryI !== -1 && setDefaultValueIndex(categoryI);
         setFilters([data[categoryI]]);
       }
+
       setCategories(data);
       setLoading(false);
     });
@@ -102,6 +124,16 @@ const Articles = ({ classes }) => {
     setFilters(filteredCategories);
   };
 
+  const selectAuthor = (filteredUser) => {
+    if (
+      defaultAuthorValueIndex &&
+      authors[defaultAuthorValueIndex] !== filteredUser[defaultAuthorValueIndex]
+    ) {
+      setTitle("Articles");
+    }
+    setSelectedAuthors(filteredUser);
+  };
+
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
 
@@ -114,12 +146,24 @@ const Articles = ({ classes }) => {
         categories={categories}
         selectCategory={selectCategory}
       />
+
+      <FilterAuthors
+        authors={authors}
+        selectAuthor={selectAuthor}
+        defaultValueIndex={defaultAuthorValueIndex}
+        // categories={categories}
+        // selectCategory={selectCategory}
+      />
+
       {articles
         .filter((article) => {
-          if (filters.length > 0) {
+          if (filters.length > 0 || selectedAuthors.length > 0) {
             return (
               filters.findIndex(
                 (filter) => filter.id === article.category.id
+              ) !== -1 ||
+              selectedAuthors.findIndex(
+                (author) => author.id === article.user.id
               ) !== -1
             );
           }
