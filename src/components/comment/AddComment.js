@@ -5,14 +5,15 @@
  * File Created: Thursday, 21st January 2021 2:40:37 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Monday, 25th January 2021 4:50:47 pm
+ * File Description: Create a new comment
+ * Last Modified: Tuesday, 26th January 2021 6:58:55 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React from "react";
+
 import {
   Card,
   withStyles,
@@ -25,8 +26,14 @@ import {
 import { Check } from "@material-ui/icons";
 
 import { create } from "../../api/api-comment";
+
 import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     root: {
@@ -38,12 +45,23 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * AddComment Component
+ *
+
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {int} articleId - the ID of the article
+ * @param {*} addComment - The function to run on successful add of comment
+ */
 const AddComment = ({ classes, articleId, addComment }) => {
   const [comment, setComment] = React.useState("");
+
   const [commentError, setCommentError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  // const [error, setError] = React.useState("");
 
+  /**
+   * Handle validation for form input
+   */
   const handleValidation = () => {
     let passed = true;
 
@@ -54,6 +72,14 @@ const AddComment = ({ classes, articleId, addComment }) => {
 
     return passed;
   };
+
+  /**
+   * Check validation and then run the
+   * comment update network request
+   *
+   * On success, close the dialog and run
+   * the add comment function
+   */
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
@@ -78,6 +104,9 @@ const AddComment = ({ classes, articleId, addComment }) => {
     }
   };
 
+  /**
+   * Render JSX
+   */
   return (
     <Card className={classes.root}>
       <TextField

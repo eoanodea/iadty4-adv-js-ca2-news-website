@@ -5,8 +5,8 @@
  * File Created: Tuesday, 5th January 2021 1:46:00 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Friday, 22nd January 2021 4:47:34 pm
+ * File Description: Stylings applied to Material UI Library
+ * Last Modified: Tuesday, 26th January 2021 6:09:08 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace

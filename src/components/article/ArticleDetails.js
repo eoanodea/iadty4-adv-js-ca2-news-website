@@ -6,17 +6,22 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 7:08:51 pm
+ * Last Modified: Tuesday, 26th January 2021 7:09:12 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import { createStyles, withStyles, Chip } from "@material-ui/core";
-
 import { AccountCircleOutlined, LocalOffer } from "@material-ui/icons";
+
 import { Link } from "react-router-dom";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     chipContainer: {
@@ -26,6 +31,13 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * Renders a chip for the article
+ *
+ * @param {string} link - The link
+ * @param {string} label - label to display on the chip
+ * @param {Icon} icon - The icon to render
+ */
 const ArticleChip = ({ link, label, icon }) => {
   if (link)
     return (
@@ -42,6 +54,14 @@ const ArticleChip = ({ link, label, icon }) => {
   return <Chip icon={icon} label={label} color="primary" clickable />;
 };
 
+/**
+ * Details on the article component
+ *
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {*} article - the article
+ * @param {bool} isLink - whether it should be a link
+ *
+ */
 const ArticleDetails = ({ classes, article, isLink }) => {
   return (
     <div className={classes.chipContainer}>

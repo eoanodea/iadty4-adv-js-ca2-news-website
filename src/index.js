@@ -5,8 +5,8 @@
  * File Created: Tuesday, 5th January 2021 1:36:58 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Thursday, 21st January 2021 2:28:36 pm
+ * File Description: Entry Point for React
+ * Last Modified: Tuesday, 26th January 2021 6:08:52 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace

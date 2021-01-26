@@ -5,8 +5,8 @@
  * File Created: Tuesday, 5th January 2021 1:58:06 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Thursday, 21st January 2021 2:24:35 pm
+ * File Description: Where a user can view their profile
+ * Last Modified: Tuesday, 26th January 2021 6:15:35 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -32,11 +32,19 @@ import {
   ExitToApp,
   QueryBuilder,
 } from "@material-ui/icons";
-import auth from "../../helpers/auth-helper";
+
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
+
 import { logout } from "../../api/api-auth";
 
+import auth from "../../helpers/auth-helper";
+
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     wrapper: {
@@ -44,11 +52,23 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * Profile Component
+ *
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {History} history - the browser history object
+ */
 const Profile = ({ classes, history }) => {
   const [user, setUser] = React.useState(null);
+
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
 
+  /**
+   * Runs when the component mounts
+   *
+   * Checks if there is an authenticated user
+   */
   useEffect(() => {
     const jwt = auth.isAuthenticated();
     if (jwt) {
@@ -60,6 +80,9 @@ const Profile = ({ classes, history }) => {
     }
   }, []);
 
+  /**
+   * Logout from the application
+   */
   const submit = () => {
     const jwt = auth.isAuthenticated();
     if (jwt) {
@@ -78,9 +101,12 @@ const Profile = ({ classes, history }) => {
     } else setError("The system encountered an error, please try again later");
   };
 
+  /**
+   * Render JSX
+   *
+   */
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} />;
-
   return (
     <Card elevation={3} className={classes.wrapper}>
       <CardHeader title="Profile" />

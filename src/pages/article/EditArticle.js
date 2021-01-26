@@ -5,14 +5,15 @@
  * File Created: Friday, 8th January 2021 5:34:58 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Monday, 25th January 2021 6:32:38 pm
+ * File Description: Editing an Article Form
+ * Last Modified: Tuesday, 26th January 2021 6:37:22 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React, { useEffect, useCallback } from "react";
+
 import {
   Button,
   Card,
@@ -25,6 +26,9 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { ArrowBack, Check } from "@material-ui/icons";
+
+import { Link } from "react-router-dom";
 
 import { show, update } from "../../api/api-article";
 import { list } from "../../api/api-categories";
@@ -32,10 +36,13 @@ import { list } from "../../api/api-categories";
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
 
-import { Link } from "react-router-dom";
-import { ArrowBack, Check } from "@material-ui/icons";
 import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     wrapper: {
@@ -43,6 +50,13 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * EditArticle Component
+ *
+ * @param {Match} match - Contains information about a react-router-dom Route
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {History} history - the browser history object
+ */
 const EditArticle = ({ match, history, classes }) => {
   const [id, setId] = React.useState(0);
 
@@ -59,11 +73,18 @@ const EditArticle = ({ match, history, classes }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
 
-  // const loadCategories = useCallback(() => {}, []);
-
+  /**
+   * Load the article by the ID in the match object
+   *
+   * Wrapped in a useCallBack which returns
+   * a memorized version of the function
+   */
   const load = useCallback(() => {
     const { id } = match.params;
 
+    /**
+     * Load the article
+     */
     show(id).then((data) => {
       if (!data || data.errors || data.exception) {
         setError(
@@ -81,6 +102,9 @@ const EditArticle = ({ match, history, classes }) => {
 
       const categoryId = data.category_id;
 
+      /**
+       * Load the category
+       */
       list().then((data) => {
         if (!data || data.errors || data.exception) {
           setError(
@@ -91,6 +115,10 @@ const EditArticle = ({ match, history, classes }) => {
 
           return setLoadingCategories(false);
         }
+
+        /**
+         * Find the current selected category on the article
+         */
         const categoryI = data.findIndex((item) => item.id === categoryId);
         setCategories(data);
         setSelectedCategory(data[categoryI]);
@@ -105,6 +133,9 @@ const EditArticle = ({ match, history, classes }) => {
     load();
   }, [load]);
 
+  /**
+   * Handle validation for form inputs
+   */
   const handleValidation = () => {
     let passed = true;
 
@@ -121,6 +152,12 @@ const EditArticle = ({ match, history, classes }) => {
     return passed;
   };
 
+  /**
+   * Check validation and then run the
+   * article update network request
+   *
+   * On success,redirect to the article
+   */
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
@@ -138,16 +175,17 @@ const EditArticle = ({ match, history, classes }) => {
               : "Could not create article"
           );
         }
+
         history.push(`/article/${data.id}`);
-        // setLoading(false);
-        // setComment("");
       });
     }
   };
 
+  /**
+   * Render JSX
+   */
   if (loadingCategories) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
-
   return (
     <React.Fragment>
       <Button component={Link} to={`/article/${id}`} startIcon={<ArrowBack />}>

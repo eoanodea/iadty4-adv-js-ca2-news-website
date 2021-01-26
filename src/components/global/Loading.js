@@ -8,6 +8,9 @@ import React from "react";
  */
 import { CircularProgress, withStyles, createStyles } from "@material-ui/core";
 
+/**
+ * Injected styles
+ */
 const styles = () =>
   createStyles({
     progressWrapper: {

@@ -5,8 +5,8 @@
  * File Created: Friday, 8th January 2021 5:34:58 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Monday, 25th January 2021 6:20:55 pm
+ * File Description: Creating n Article Form
+ * Last Modified: Tuesday, 26th January 2021 6:26:35 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -25,6 +25,9 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import { ArrowBack, Check } from "@material-ui/icons";
+
+import { Link } from "react-router-dom";
 
 import { create } from "../../api/api-article";
 import { list } from "../../api/api-categories";
@@ -32,10 +35,13 @@ import { list } from "../../api/api-categories";
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
 
-import { Link } from "react-router-dom";
-import { ArrowBack, Check } from "@material-ui/icons";
 import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     wrapper: {
@@ -43,6 +49,12 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * CreateArticle Component
+ *
+ * @param {History} history - the browser history object
+ * @param {Theme} classes - classes passed from Material UI Theme
+ */
 const CreateArticle = ({ history, classes }) => {
   const [title, setTitle] = React.useState("");
   const [titleError, setTitleError] = React.useState("");
@@ -57,6 +69,12 @@ const CreateArticle = ({ history, classes }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
 
+  /**
+   * load articles by the ID in the match object
+   *
+   * Wrapped in a useCallBack which returns
+   * a memorized version of the function
+   */
   const loadCategories = useCallback(() => {
     list().then((data) => {
       if (!data || data.errors || data.exception) {
@@ -80,6 +98,9 @@ const CreateArticle = ({ history, classes }) => {
     loadCategories();
   }, [loadCategories]);
 
+  /**
+   * Handle validation for form inputs
+   */
   const handleValidation = () => {
     let passed = true;
 
@@ -96,6 +117,12 @@ const CreateArticle = ({ history, classes }) => {
     return passed;
   };
 
+  /**
+   * Check validation and then run the
+   * article create network request
+   *
+   * On success,redirect to the article
+   */
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
@@ -116,10 +143,12 @@ const CreateArticle = ({ history, classes }) => {
     }
   };
 
+  /**
+   * Render JSX
+   */
   if (loadingCategories) return <Loading />;
   if (error !== "")
     return <EmptyState message={error} action={loadCategories} />;
-
   return (
     <React.Fragment>
       <Button component={Link} to="/" startIcon={<ArrowBack />}>

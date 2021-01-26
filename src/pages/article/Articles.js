@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:07:01 pm
+ * Last Modified: Tuesday, 26th January 2021 6:59:53 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,21 +14,27 @@
 
 import React, { useEffect, useCallback } from "react";
 
+import { Typography, withStyles, createStyles, Fab } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
+
+import { Link } from "react-router-dom";
+
 import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
-import FilterCategories from "../../components/category/FilterCategories";
-import FilterAuthors from "../../components/author/FilterAuthors";
+import FilterCategories from "../../components/filter/FilterCategories";
+import FilterAuthors from "../../components/filter/FilterAuthors";
 import ArticleItem from "../../components/article/ArticleItem";
-
-import auth from "../../helpers/auth-helper";
 
 import { list as listArticles } from "../../api/api-article";
 import { list as listCategories } from "../../api/api-categories";
 
-import { Typography, withStyles, createStyles, Fab } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { Add } from "@material-ui/icons";
+import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     fab: {
@@ -38,23 +44,41 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * Articles Component
+ *
+ * @param {Theme} classes - classes passed from Material UI Theme
+ */
 const Articles = ({ classes }) => {
   const [title, setTitle] = React.useState("Articles");
+
   const [articles, setArticles] = React.useState([]);
   const [authors, setAuthors] = React.useState([]);
-  const [selectedAuthors, setSelectedAuthors] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
+
+  const [selectedAuthors, setSelectedAuthors] = React.useState([]);
   const [filters, setFilters] = React.useState([]);
+
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
+
   const [defaultValueIndex, setDefaultValueIndex] = React.useState(null);
   const [defaultAuthorValueIndex, setDefaultAuthorValueIndex] = React.useState(
     null
   );
   const isAuthed = auth.isAuthenticated();
 
+  /**
+   * Load articles and categories
+   *
+   * Wrapped in a useCallBack which returns
+   * a memorized version of the function
+   */
   const load = useCallback(() => {
     setLoading(true);
+    /**
+     * Load articles
+     */
     listArticles().then((data) => {
       if (!data || data.errors || data.exception) {
         setLoading(false);
@@ -65,11 +89,17 @@ const Articles = ({ classes }) => {
         );
       }
       setError("");
+
       const articles = data.reverse();
       const authors = articles.map((article) => article.user);
       setArticles(data);
       setAuthors(authors);
 
+      /**
+       * Check if the user is in the URL
+       *
+       * If so, set it as the default article, and update the title
+       */
       if (window.location.pathname.includes("user")) {
         const userId = parseInt(window.location.pathname.split("user/")[1]);
         const userI = authors.findIndex((user) => user.id === userId);
@@ -82,6 +112,9 @@ const Articles = ({ classes }) => {
       }
     });
 
+    /**
+     * Load categories
+     */
     listCategories().then((data) => {
       if (!data || data.errors || data.exception) {
         setLoading(false);
@@ -93,6 +126,12 @@ const Articles = ({ classes }) => {
         );
       }
       setError("");
+
+      /**
+       * Check if the category is in the URL
+       *
+       * If so, set it as the default article, and update the title
+       */
       if (window.location.pathname.includes("category")) {
         const categoryId = window.location.pathname.split("category/")[1];
         const categoryI = data.findIndex(
@@ -113,6 +152,11 @@ const Articles = ({ classes }) => {
     load();
   }, [load]);
 
+  /**
+   * Selecting a category from the FilterCategories component
+   *
+   * @param {category} filteredCategories
+   */
   const selectCategory = (filteredCategories) => {
     if (
       defaultValueIndex &&
@@ -123,6 +167,11 @@ const Articles = ({ classes }) => {
     setFilters(filteredCategories);
   };
 
+  /**
+   * Selecting a author from the FilterAuthors component
+   *
+   * @param {author} filteredUser
+   */
   const selectAuthor = (filteredUser) => {
     if (
       defaultAuthorValueIndex &&
@@ -133,9 +182,11 @@ const Articles = ({ classes }) => {
     setSelectedAuthors(filteredUser);
   };
 
+  /**
+   * Render JSX
+   */
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
-
   return (
     <React.Fragment>
       <Typography variant="h3">{title}</Typography>

@@ -5,8 +5,8 @@
  * File Created: Tuesday, 5th January 2021 1:36:58 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Friday, 8th January 2021 4:40:42 pm
+ * File Description: Renders the Router, Theme Provider and MainRouter
+ * Last Modified: Tuesday, 26th January 2021 6:08:43 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace

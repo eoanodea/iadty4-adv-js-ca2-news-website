@@ -2,7 +2,7 @@
  * Primary dependencies
  */
 import React from "react";
-import { Link } from "react-router-dom";
+
 import {
   Button,
   withStyles,
@@ -12,6 +12,13 @@ import {
 } from "@material-ui/core";
 import { Replay, Error } from "@material-ui/icons";
 
+import { Link } from "react-router-dom";
+
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     wrapper: {
@@ -32,8 +39,13 @@ const styles = ({ spacing }) =>
   });
 
 /**
- * Renders an Error
+ * Renders a message state
  *  for the application
+ *
+ * @param {string} message? - A message to display
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {string} action? - An action to execute when you see the state
+ * @param {string} actionLabel? - A label for the action button
  */
 const EmptyState = ({
   message,

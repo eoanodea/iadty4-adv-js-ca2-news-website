@@ -5,14 +5,15 @@
  * File Created: Friday, 22nd January 2021 5:17:34 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Monday, 25th January 2021 4:11:09 pm
+ * File Description: Edit an existing comment
+ * Last Modified: Tuesday, 26th January 2021 6:58:55 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React from "react";
+
 import {
   withStyles,
   createStyles,
@@ -27,8 +28,14 @@ import {
 import { Check } from "@material-ui/icons";
 
 import { update } from "../../api/api-comment";
+
 import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     root: {
@@ -43,6 +50,15 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * EditComment Component
+ *
+ * @param {bool} open - whether the dialog should be open or not
+ * @param {*} comment - The comment to be edited
+ * @param {*} updateComment - The function to run on successful edit
+ * @param {*} handleClose - The function to run to close the dialog
+ * @param {Theme} classes - classes passed from Material UI Theme
+ */
 const EditComment = ({
   open,
   comment,
@@ -51,9 +67,13 @@ const EditComment = ({
   classes,
 }) => {
   const [newComment, setNewComment] = React.useState(comment.body);
+
   const [commentError, setCommentError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
+  /**
+   * Handle validation for form inputs
+   */
   const handleValidation = () => {
     let passed = true;
 
@@ -64,6 +84,14 @@ const EditComment = ({
 
     return passed;
   };
+
+  /**
+   * Check validation and then run the
+   * comment update network request
+   *
+   * On success, close the dialog and run
+   * the updateComment function
+   */
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
@@ -86,6 +114,9 @@ const EditComment = ({
     }
   };
 
+  /**
+   * Render JSX
+   */
   return (
     <Dialog
       open={open}

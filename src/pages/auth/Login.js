@@ -5,8 +5,8 @@
  * File Created: Tuesday, 5th January 2021 1:58:06 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Thursday, 21st January 2021 2:24:35 pm
+ * File Description: Where a user can login
+ * Last Modified: Tuesday, 26th January 2021 6:17:23 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -27,9 +27,16 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { Check, Error } from "@material-ui/icons";
+
 import { login } from "../../api/api-auth";
+
 import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     wrapper: {
@@ -37,14 +44,25 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * Login Component
+ *
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {History} history - the browser history object
+ */
 const Login = ({ classes, history }) => {
   const [email, setEmail] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
+
   const [password, setPassword] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
+
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState("");
 
+  /**
+   * Handle validation for form inputs
+   */
   const handleValidation = () => {
     let passed = true;
 
@@ -64,6 +82,13 @@ const Login = ({ classes, history }) => {
     return passed;
   };
 
+  /**
+   * Check validation and then run the
+   * login network request
+   *
+   * On success, set token in local storage &
+   * redirect the user to profile
+   */
   const submit = () => {
     if (handleValidation()) {
       setLoading(true);
@@ -86,6 +111,9 @@ const Login = ({ classes, history }) => {
     }
   };
 
+  /**
+   * Render JSX
+   */
   return (
     <Card elevation={3} className={classes.wrapper}>
       <CardHeader title="Login" />

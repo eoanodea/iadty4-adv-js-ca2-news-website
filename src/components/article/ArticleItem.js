@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:03:55 pm
+ * Last Modified: Tuesday, 26th January 2021 7:06:07 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -35,9 +35,16 @@ import { Create, Delete, MoreVert } from "@material-ui/icons";
 
 import ArticleActionArea from "./ArticleActionArea";
 import ArticleDetails from "./ArticleDetails";
-import { Link } from "react-router-dom";
 import DeleteArticle from "./DeleteArticle";
 
+import { Link } from "react-router-dom";
+
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ * @param {palette} palette - The palette defined in theme.js
+ */
 const styles = ({ palette, spacing }) =>
   createStyles({
     card: {
@@ -56,6 +63,18 @@ const styles = ({ palette, spacing }) =>
     },
   });
 
+/**
+ * ArticleItem Component
+ *
+ * A single comment
+ *
+ * @param {bool} displayActions - if the article belongs to the authed user, display actions
+ * @param {History} history - the browser history object
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {*} article - The article to be displayed
+ * @param {*} link - The link to optionally display
+ * @param {*} delay - The delay of the animation
+ */
 const ArticleItem = ({
   displayActions,
   history,
@@ -66,17 +85,26 @@ const ArticleItem = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
-
   const open = Boolean(anchorEl);
 
+  /**
+   * Opens the more options menu
+   *
+   * @param {*} event
+   */
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  /**
+   * Closes the more options menu
+   */
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  /**
+   * Render JSX
+   */
   return (
     <Zoom in={true} style={{ transitionDelay: `${delay}ms` }}>
       <Card className={classes.card}>

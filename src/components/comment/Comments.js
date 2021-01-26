@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Monday, 25th January 2021 5:24:23 pm
+ * Last Modified: Tuesday, 26th January 2021 6:52:31 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,14 +14,24 @@
 import React from "react";
 
 import { withRouter } from "react-router-dom";
-import { Typography } from "@material-ui/core";
 
-import auth from "../../helpers/auth-helper";
+import { Typography } from "@material-ui/core";
 
 import CommentItem from "./CommentItem";
 import EmptyState from "../global/EmptyState";
 import AddComment from "./AddComment";
 
+import auth from "../../helpers/auth-helper";
+
+/**
+ * Comments Component
+ *
+ * @param {Array} comments - an array of comments
+ * @param {History} history - the browser history object
+ * @param {int} articleId - the ID of the article
+ * @param {*} addComment - The function to run on adding a comment
+ * @param {*} removeComment - The function to run on removing a comment
+ */
 const Comments = ({
   comments,
   history,
@@ -29,11 +39,20 @@ const Comments = ({
   addComment,
   removeComment,
 }) => {
+  /**
+   * Redirect to the login page
+   */
   const login = () => {
     history.push(`/login${window.location.pathname}`);
   };
+  /**
+   * Check for auth before displaying comments
+   */
   const hasAuth = auth.isAuthenticated();
 
+  /**
+   * Render JSX
+   */
   return (
     <React.Fragment>
       <Typography variant="h3">Comments</Typography>

@@ -5,14 +5,15 @@
  * File Created: Friday, 22nd January 2021 5:17:34 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Monday, 25th January 2021 4:12:44 pm
+ * File Description: Delete a comment
+ * Last Modified: Tuesday, 26th January 2021 7:03:45 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React from "react";
+
 import {
   withStyles,
   createStyles,
@@ -25,12 +26,17 @@ import {
   DialogContentText,
   Snackbar,
 } from "@material-ui/core";
-
 import { Close, Delete } from "@material-ui/icons";
 
 import { remove } from "../../api/api-comment";
+
 import auth from "../../helpers/auth-helper";
 
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ */
 const styles = ({ spacing }) =>
   createStyles({
     root: {
@@ -42,10 +48,25 @@ const styles = ({ spacing }) =>
     },
   });
 
+/**
+ * DeleteComment Component
+ *
+ * @param {bool} open - whether the dialog should be open or not
+ * @param {*} comment - The comment to be edited
+ * @param {*} deleteComment - The function to run on successful edit
+ * @param {*} handleClose - The function to run to close the dialog
+ * @param {Theme} classes - classes passed from Material UI Theme
+ */
 const DeleteComment = ({ open, comment, deleteComment, handleClose }) => {
   const [commentError, setCommentError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
+  /**
+   * run the comment delete network request
+   *
+   * On success, close the dialog and run
+   * the deleteComment function
+   */
   const submit = () => {
     setLoading(true);
     const jwt = auth.isAuthenticated();
@@ -64,6 +85,9 @@ const DeleteComment = ({ open, comment, deleteComment, handleClose }) => {
     });
   };
 
+  /**
+   * Render JSX
+   */
   return (
     <React.Fragment>
       <Dialog

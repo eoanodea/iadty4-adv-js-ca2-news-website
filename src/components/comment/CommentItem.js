@@ -5,8 +5,8 @@
  * File Created: Friday, 15th January 2021 4:07:13 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Monday, 25th January 2021 4:09:21 pm
+ * File Description: A single comment
+ * Last Modified: Tuesday, 26th January 2021 6:56:56 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -30,16 +30,22 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
+import { Create, Delete, MoreVert } from "@material-ui/icons";
 
 import { show } from "../../api/api-comment";
 
-import auth from "../../helpers/auth-helper";
-
 import EmptyState from "../global/EmptyState";
-import { Create, Delete, MoreVert } from "@material-ui/icons";
 import EditComment from "./EditComment";
 import DeleteComment from "./DeleteComment";
 
+import auth from "../../helpers/auth-helper";
+
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ * @param {palette} palette - The palette defined in theme.js
+ */
 const styles = ({ palette, spacing }) =>
   createStyles({
     card: {
@@ -58,6 +64,15 @@ const styles = ({ palette, spacing }) =>
     },
   });
 
+/**
+ * CommentItem Component
+ *
+ * A single comment
+ *
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {*} comment - The comment to be displayed
+ * @param {*} removeComment - The function to run on successful removal of comment
+ */
 const CommentItem = ({ classes, comment, removeComment }) => {
   const [fullComment, setFullComment] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
@@ -68,19 +83,38 @@ const CommentItem = ({ classes, comment, removeComment }) => {
   const [displayActions, setDisplayActions] = React.useState(false);
   const open = Boolean(anchorEl);
 
+  /**
+   * Open the more options menu
+   *
+   * @param {*} event
+   */
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  /**
+   * Close the more options menu
+   */
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  /**
+   * Close the delete dialog and
+   * run the removeComment function
+   *
+   * @param {int} id
+   */
   const deleteComment = (id) => {
     handleClose();
     removeComment(id);
   };
 
+  /**
+   * Close the edit dialog
+   * and update the comment body
+   *
+   * @param {string} body
+   */
   const updateComment = (body) => {
     handleClose();
     setFullComment((old) => {
@@ -91,16 +125,15 @@ const CommentItem = ({ classes, comment, removeComment }) => {
     setOpenEditDialog(false);
   };
 
-  // const deleteComment = (id) => {
-  //   console.log("hello!", id);
-  // setFullComment((old) => {
-  //   console.log("old!", old);
-  //   const items = old.filter((item) => item.id !== id);
-
-  //   return { ...items };
-  // });
-  // };
-
+  /**
+   * Load the comment by the ID in the comment object
+   *
+   * Wrapped in a useCallBack which returns
+   * a memorized version of the function
+   *
+   * The comment needs to be loaded again
+   * to display details about the user
+   */
   const load = useCallback(() => {
     setLoading(true);
     const jwt = auth.isAuthenticated();
@@ -115,6 +148,10 @@ const CommentItem = ({ classes, comment, removeComment }) => {
       }
       setError("");
       setFullComment(data);
+      /**
+       * If the user logged in is the user who wrote the comment,
+       * display the actions to them
+       */
       jwt.user.id === data.user.id && setDisplayActions(true);
       setLoading(false);
     });
@@ -124,9 +161,11 @@ const CommentItem = ({ classes, comment, removeComment }) => {
     load();
   }, [load]);
 
+  /**
+   * Render JSX
+   */
   if (loading) return <></>;
   if (error !== "") return <EmptyState message={error} action={load} />;
-
   return (
     <Grow in={true}>
       <Card className={classes.card}>

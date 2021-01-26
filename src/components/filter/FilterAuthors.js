@@ -1,18 +1,19 @@
 /**
- * File: filter-categories.js
+ * File: filter-authors.js
  * Project: ca2-client
  * Version 0.1.0
  * File Created: Tuesday, 12th January 2021 1:49:12 pm
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
- * File Description:
- * Last Modified: Tuesday, 19th January 2021 1:46:42 pm
+ * File Description: Filter authors on the article list
+ * Last Modified: Tuesday, 26th January 2021 7:02:00 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React from "react";
+
 import { TextField, Checkbox } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import {
@@ -23,24 +24,27 @@ import {
 const icon = <CheckBoxOutlineBlank fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const FilterCategories = ({
-  categories,
-  selectCategory,
-  defaultValueIndex = null,
-}) => {
-  if (categories && categories.length > 0) {
+/**
+ * Filter authors on the article list
+ *
+ * @param {*} authors
+ * @param {*} selectCategory - function to run on selecting a author
+ * @param {*} defaultValueIndex - If there is a default author selected
+ */
+const FilterAuthors = ({ authors, selectAuthor, defaultValueIndex = null }) => {
+  if (authors && authors.length > 0) {
     return (
       <Autocomplete
         multiple
-        id="filter-categories"
-        options={categories}
-        getOptionLabel={(option) => option.title}
+        id="filter-authors"
+        options={authors}
+        getOptionLabel={(option) => option.name}
         disableCloseOnSelect
         limitTags={3}
         defaultValue={
-          defaultValueIndex ? [categories[defaultValueIndex]] : undefined
+          defaultValueIndex ? [authors[defaultValueIndex]] : undefined
         }
-        onChange={(event, value) => selectCategory(value)}
+        onChange={(event, value) => selectAuthor(value)}
         renderOption={(option, { selected }) => (
           <React.Fragment>
             <Checkbox
@@ -49,15 +53,15 @@ const FilterCategories = ({
               style={{ marginRight: 8 }}
               checked={selected}
             />
-            {option.title}
+            {option.name}
           </React.Fragment>
         )}
         renderInput={(params) => (
           <TextField
             {...params}
             variant="outlined"
-            label="Filter by Category"
-            placeholder="Basketball"
+            label="Filter by Author"
+            placeholder="Author"
           />
         )}
       />
@@ -66,4 +70,4 @@ const FilterCategories = ({
   return <></>;
 };
 
-export default FilterCategories;
+export default FilterAuthors;

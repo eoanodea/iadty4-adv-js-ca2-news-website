@@ -6,16 +6,18 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:04:57 pm
+ * Last Modified: Tuesday, 26th January 2021 6:37:24 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
  */
 
 import React, { useEffect, useCallback } from "react";
+
 import { Button, createStyles, withStyles } from "@material-ui/core";
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@material-ui/lab";
-import { Delete, Edit } from "@material-ui/icons";
+import { ArrowBack } from "@material-ui/icons";
+
+import { Link } from "react-router-dom";
 
 import { show } from "../../api/api-article";
 
@@ -23,11 +25,15 @@ import Loading from "../../components/global/Loading";
 import EmptyState from "../../components/global/EmptyState";
 import ArticleItem from "../../components/article/ArticleItem";
 import Comments from "../../components/comment/Comments";
-import { Link } from "react-router-dom";
-import { ArrowBack } from "@material-ui/icons";
-import auth from "../../helpers/auth-helper";
-import DeleteArticle from "../../components/article/DeleteArticle";
 
+import auth from "../../helpers/auth-helper";
+
+/**
+ * Injected styles
+ *
+ * @param {int} spacing
+ * @param {palette} palette - The palette defined in theme.js
+ */
 const styles = ({ palette, spacing }) =>
   createStyles({
     card: {
@@ -47,16 +53,27 @@ const styles = ({ palette, spacing }) =>
     },
   });
 
-const Article = ({ history, match, classes }) => {
+/**
+ * Article Component
+ *
+ * @param {Theme} classes - classes passed from Material UI Theme
+ * @param {Match} match - Contains information about a react-router-dom Route
+ */
+const Article = ({ history, match }) => {
   const [article, setArticle] = React.useState([]);
   const [comments, setComments] = React.useState([]);
+
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState("");
-  const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
-  const [openSpeedDial, setOpenSpeedDial] = React.useState(false);
-  // const isAuthed = auth.isAuthenticated();
+
   const [displayActions, setDisplayActions] = React.useState(false);
 
+  /**
+   * Load the article by the ID in the match object
+   *
+   * Wrapped in a useCallBack which returns
+   * a memorized version of the function
+   */
   const load = useCallback(() => {
     setLoading(true);
     const { id } = match.params;
@@ -87,8 +104,18 @@ const Article = ({ history, match, classes }) => {
     load();
   }, [load]);
 
+  /**
+   * Adds a comment from the AddComment component
+   *
+   * @param {comment} comment
+   */
   const addComment = (comment) => setComments((old) => [comment, ...old]);
 
+  /**
+   * Removes a comment from the AddComment component
+   *
+   * @param {comment} comment
+   */
   const removeComment = (id) => {
     setComments((old) => {
       const items = old.filter((item) => item.id !== id);
@@ -99,7 +126,6 @@ const Article = ({ history, match, classes }) => {
 
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
-
   return (
     <React.Fragment>
       <Button component={Link} to="/" startIcon={<ArrowBack />}>
