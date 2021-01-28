@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Additional routes in the application
- * Last Modified: Tuesday, 26th January 2021 6:09:50 pm
+ * Last Modified: Thursday, 28th January 2021 5:32:53 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -40,7 +40,6 @@ const routes = [
     link: "/profile",
     component: Profile,
     authed: true,
-    displayOnNav: true,
   },
   {
     name: "Article",

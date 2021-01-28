@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:37:24 pm
+ * Last Modified: Thursday, 28th January 2021 5:17:26 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -95,6 +95,7 @@ const Article = ({ history, match }) => {
         delete data.comments;
       }
       setArticle(data);
+
       jwt && jwt.user.id === data.user.id && setDisplayActions(true);
       setLoading(false);
     });
@@ -131,6 +132,7 @@ const Article = ({ history, match }) => {
       <Button component={Link} to="/" startIcon={<ArrowBack />}>
         Back
       </Button>
+
       <ArticleItem
         article={article}
         history={history}

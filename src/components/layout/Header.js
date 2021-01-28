@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:43:38 pm
+ * Last Modified: Thursday, 28th January 2021 5:41:26 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -27,11 +27,18 @@ import {
   createStyles,
   Toolbar,
   withStyles,
+  IconButton,
+  Menu,
+  MenuItem,
+  Snackbar,
+  CircularProgress,
 } from "@material-ui/core";
 
 import routes from "./../../routing/routes";
 
 import auth from "../../helpers/auth-helper";
+import { AccountCircle } from "@material-ui/icons";
+import { logout } from "../../api/api-auth";
 
 /**
  * Injected styles
@@ -61,6 +68,20 @@ const Header = ({ history, classes }) => {
    */
   const [isAuthed, setIsAuthed] = React.useState(false);
 
+  const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   /**
    * Check if the user is authenticaed
    */
@@ -84,6 +105,36 @@ const Header = ({ history, classes }) => {
   }, [history]);
 
   /**
+   * Logout from the application
+   */
+  const submit = () => {
+    const jwt = auth.isAuthenticated();
+    if (jwt) {
+      setLoading(true);
+      logout(jwt.token).then((data) => {
+        if (data.errors) {
+          setLoading(false);
+          return setMessage(Object.values(data.errors)[0][0]);
+        }
+        auth.unsetUserDetails((success) => {
+          if (success) {
+            setIsAuthed(false);
+            setLoading(false);
+            handleClose();
+            setMessage("Logged out successfully");
+
+            return history.push("/");
+          }
+          setMessage("The system encountered an error, please try again later");
+        });
+      });
+    } else {
+      setIsAuthed(false);
+      setMessage("The system encountered an error, please try again later");
+    }
+  };
+
+  /**
    * Render JSX
    */
   return (
@@ -104,8 +155,50 @@ const Header = ({ history, classes }) => {
                 {route.name}
               </Button>
             ))}
+
+          {isAuthed && (
+            <React.Fragment>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem component={Link} to="/profile" onClick={handleClose}>
+                  Profile
+                </MenuItem>
+                <MenuItem disabled={loading} onClick={submit}>
+                  Logout {loading && <CircularProgress size={18} />}
+                </MenuItem>
+              </Menu>
+            </React.Fragment>
+          )}
         </div>
       </Toolbar>
+      <Snackbar
+        open={message !== ""}
+        autoHideDuration={6000}
+        onClose={() => setMessage("")}
+        message={message}
+      ></Snackbar>
     </AppBar>
   );
 };

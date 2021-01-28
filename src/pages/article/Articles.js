@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:59:53 pm
+ * Last Modified: Thursday, 28th January 2021 5:27:39 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -91,7 +91,18 @@ const Articles = ({ classes }) => {
       setError("");
 
       const articles = data.reverse();
-      const authors = articles.map((article) => article.user);
+      let authors = [];
+      articles.forEach((article) => {
+        /**
+         * Prevent duplicate authors in authors array
+         */
+        if (
+          authors.findIndex((author) => author.id === article.user.id) === -1
+        ) {
+          authors.push(article.user);
+        }
+      });
+
       setArticles(data);
       setAuthors(authors);
 
