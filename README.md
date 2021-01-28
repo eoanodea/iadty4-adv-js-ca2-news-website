@@ -4,11 +4,15 @@
 
 ### Description
 
+A simple React app to display Articles, and comments associated with an article.
+
 This application was built for Advanced JavaScript CA2
+
+A user can register, login, post, edit and delete an article and comment on an article.
 
 ### Demo
 
-Coming Soon
+A live demo can be viewed [here](http://adv-js-ca2.eoan.ie)
 
 ### What you need to run this code
 
