@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Stylings applied to Material UI Library
- * Last Modified: Tuesday, 26th January 2021 6:09:08 pm
+ * Last Modified: Thursday, 28th January 2021 5:49:03 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -37,6 +37,13 @@ let theme = createMuiTheme({
       root: {
         display: "flex",
         flexDirection: "column-reverse",
+      },
+    },
+    MuiTypography: {
+      h3: {
+        fontWeight: 500,
+        fontSize: "2.3em",
+        margin: "10px",
       },
     },
   },

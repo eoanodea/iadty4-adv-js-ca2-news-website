@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Filter categories on the article list
- * Last Modified: Tuesday, 26th January 2021 7:02:00 pm
+ * Last Modified: Thursday, 28th January 2021 5:46:29 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -46,7 +46,9 @@ const FilterCategories = ({
         disableCloseOnSelect
         limitTags={3}
         defaultValue={
-          defaultValueIndex ? [categories[defaultValueIndex]] : undefined
+          defaultValueIndex !== null
+            ? [categories[defaultValueIndex]]
+            : undefined
         }
         onChange={(event, value) => selectCategory(value)}
         renderOption={(option, { selected }) => (

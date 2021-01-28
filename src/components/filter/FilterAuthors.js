@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Filter authors on the article list
- * Last Modified: Tuesday, 26th January 2021 7:02:00 pm
+ * Last Modified: Thursday, 28th January 2021 5:46:45 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -42,7 +42,7 @@ const FilterAuthors = ({ authors, selectAuthor, defaultValueIndex = null }) => {
         disableCloseOnSelect
         limitTags={3}
         defaultValue={
-          defaultValueIndex ? [authors[defaultValueIndex]] : undefined
+          defaultValueIndex !== null ? [authors[defaultValueIndex]] : undefined
         }
         onChange={(event, value) => selectAuthor(value)}
         renderOption={(option, { selected }) => (
