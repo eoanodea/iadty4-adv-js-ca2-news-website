@@ -22,7 +22,8 @@ A live demo can be viewed [here](http://adv-js-ca2.eoan.ie)
 ### How to run this code
 
 1. Clone this repository to your local machine.
-2. Fill in the server URL
-3. Run `npm install` to install the dependencies
-4. Run `npm start` to run the application in development
-5. Run `npm run build` to build the application
+2. Fill in the server URL (You must have a Laravel Article server)
+3. Run `cp .env.example .env` and fill in the appropiate server url
+4. Run `npm install` to install the dependencies
+5. Run `npm start` to run the application in development
+6. Run `npm run build` to build the application
