@@ -2,6 +2,8 @@
 
 ## Advanced JavaScript - CA#2
 
+![CI](https://github.com/eoanodea/iadty4-adv-js-ca2-news-website/workflows/CI/badge.svg)
+
 ### Description
 
 A simple React app to display Articles, and comments associated with an article.
