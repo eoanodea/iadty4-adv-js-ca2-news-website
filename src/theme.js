@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Stylings applied to Material UI Library
- * Last Modified: Thursday, 28th January 2021 5:49:03 pm
+ * Last Modified: Thursday, 28th January 2021 5:59:20 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -27,6 +27,11 @@ let theme = createMuiTheme({
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
   overrides: {
+    MuiGrid: {
+      item: {
+        maxWidth: "800px!important",
+      },
+    },
     MuiTextField: {
       root: {
         width: "100%",

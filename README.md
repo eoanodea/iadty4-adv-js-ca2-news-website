@@ -12,7 +12,7 @@ A user can register, login, post, edit and delete an article and comment on an a
 
 ### Demo
 
-A live demo can be viewed [here](http://adv-js-ca2.eoan.ie)
+A live demo can be viewed [here](https://adv-js-ca2.eoan.ie)
 
 ### What you need to run this code
 
