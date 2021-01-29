@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 29th January 2021 9:36:00 pm
+ * Last Modified: Friday, 29th January 2021 9:50:08 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -18,10 +18,7 @@ import { withRouter } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 
 import CommentItem from "./CommentItem";
-import EmptyState from "../global/EmptyState";
 import AddComment from "./AddComment";
-
-import auth from "../../helpers/auth-helper";
 
 /**
  * Comments Component
