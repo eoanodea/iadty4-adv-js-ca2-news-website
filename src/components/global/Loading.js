@@ -6,7 +6,12 @@ import React from "react";
 /**
  * Component Library imports
  */
-import { CircularProgress, withStyles, createStyles } from "@material-ui/core";
+import {
+  CircularProgress,
+  withStyles,
+  createStyles,
+  Typography,
+} from "@material-ui/core";
 
 /**
  * Injected styles
@@ -18,6 +23,11 @@ const styles = () =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
     },
   });
 
@@ -27,7 +37,9 @@ const styles = () =>
  */
 const Loading = ({ classes }) => (
   <div className={classes.progressWrapper}>
-    <CircularProgress />
+    <div>
+      <CircularProgress />
+    </div>
   </div>
 );
 

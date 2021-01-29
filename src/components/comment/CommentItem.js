@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: A single comment
- * Last Modified: Tuesday, 26th January 2021 6:56:56 pm
+ * Last Modified: Friday, 29th January 2021 9:36:25 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -138,13 +138,15 @@ const CommentItem = ({ classes, comment, removeComment }) => {
     setLoading(true);
     const jwt = auth.isAuthenticated();
     show(comment.id, jwt.token).then((data) => {
-      if (!data || data.errors || data.exception) {
-        setLoading(false);
-        return setError(
+      if (!data || data.errors || data.exception || data.message) {
+        setError(
           data && data.errors
             ? Object.values(data.errors)[0][0]
+            : data.message
+            ? data.message
             : "Could not load data"
         );
+        return setLoading(false);
       }
       setError("");
       setFullComment(data);
@@ -152,7 +154,8 @@ const CommentItem = ({ classes, comment, removeComment }) => {
        * If the user logged in is the user who wrote the comment,
        * display the actions to them
        */
-      jwt.user.id === data.user.id && setDisplayActions(true);
+
+      jwt && jwt.user.id === data.user.id && setDisplayActions(true);
       setLoading(false);
     });
   }, [comment]);

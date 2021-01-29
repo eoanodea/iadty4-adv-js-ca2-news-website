@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 7:06:07 pm
+ * Last Modified: Friday, 29th January 2021 9:41:56 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -50,6 +50,9 @@ const styles = ({ palette, spacing }) =>
     card: {
       margin: `${spacing(4)}px auto`,
     },
+    fixedHeightCard: {
+      height: 200,
+    },
     avatar: {
       background: palette.secondary.main,
     },
@@ -82,6 +85,7 @@ const ArticleItem = ({
   article,
   link = null,
   delay = 0,
+  disableHeight = true,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
@@ -107,7 +111,7 @@ const ArticleItem = ({
    */
   return (
     <Zoom in={true} style={{ transitionDelay: `${delay}ms` }}>
-      <Card className={classes.card}>
+      <Card className={disableHeight ? classes.fixedHeightCard : classes.card}>
         <ArticleActionArea link={link}>
           <CardHeader
             avatar={

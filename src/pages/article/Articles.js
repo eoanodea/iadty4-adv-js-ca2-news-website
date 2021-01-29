@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 28th January 2021 5:47:42 pm
+ * Last Modified: Friday, 29th January 2021 9:35:10 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,7 +14,13 @@
 
 import React, { useEffect, useCallback } from "react";
 
-import { Typography, withStyles, createStyles, Fab } from "@material-ui/core";
+import {
+  Typography,
+  withStyles,
+  createStyles,
+  Fab,
+  Grid,
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 
 import { Link } from "react-router-dom";
@@ -80,7 +86,7 @@ const Articles = ({ classes }) => {
      * Load articles
      */
     listArticles().then((data) => {
-      if (!data || data.errors || data.exception) {
+      if (!data || data.errors || data.exception || data.message) {
         setLoading(false);
         return setError(
           data && data.errors
@@ -127,7 +133,7 @@ const Articles = ({ classes }) => {
      * Load categories
      */
     listCategories().then((data) => {
-      if (!data || data.errors || data.exception) {
+      if (!data || data.errors || data.exception || data.message) {
         setLoading(false);
 
         return setError(
@@ -201,44 +207,49 @@ const Articles = ({ classes }) => {
   return (
     <React.Fragment>
       <Typography variant="h3">{title}</Typography>
-
-      <FilterCategories
-        defaultValueIndex={defaultValueIndex}
-        categories={categories}
-        selectCategory={selectCategory}
-      />
-
-      <FilterAuthors
-        authors={authors}
-        selectAuthor={selectAuthor}
-        defaultValueIndex={defaultAuthorValueIndex}
-      />
-
-      {articles
-        .filter((article) => {
-          if (filters.length > 0 || selectedAuthors.length > 0) {
+      <Grid container spacing={2}>
+        <Grid item sm={6} xs={12}>
+          <FilterCategories
+            defaultValueIndex={defaultValueIndex}
+            categories={categories}
+            selectCategory={selectCategory}
+          />
+        </Grid>
+        <Grid item sm={6} xs={12}>
+          <FilterAuthors
+            authors={authors}
+            selectAuthor={selectAuthor}
+            defaultValueIndex={defaultAuthorValueIndex}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        {articles
+          .filter((article) => {
+            if (filters.length > 0 || selectedAuthors.length > 0) {
+              return (
+                filters.findIndex(
+                  (filter) => filter.id === article.category.id
+                ) !== -1 ||
+                selectedAuthors.findIndex(
+                  (author) => author.id === article.user.id
+                ) !== -1
+              );
+            }
+            return article;
+          })
+          .map((article, i) => {
             return (
-              filters.findIndex(
-                (filter) => filter.id === article.category.id
-              ) !== -1 ||
-              selectedAuthors.findIndex(
-                (author) => author.id === article.user.id
-              ) !== -1
+              <Grid item sm={6} xs={12} key={i}>
+                <ArticleItem
+                  delay={(i + 1) * 200}
+                  article={article}
+                  link={`/article/${article.id}`}
+                />
+              </Grid>
             );
-          }
-          return article;
-        })
-        .map((article, i) => {
-          return (
-            <ArticleItem
-              key={i}
-              delay={(i + 1) * 200}
-              article={article}
-              link={`/article/${article.id}`}
-            />
-          );
-        })}
-
+          })}
+      </Grid>
       {isAuthed && (
         <Fab
           className={classes.fab}

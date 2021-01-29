@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Create a new comment
- * Last Modified: Tuesday, 26th January 2021 6:58:55 pm
+ * Last Modified: Friday, 29th January 2021 9:35:10 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -87,7 +87,7 @@ const AddComment = ({ classes, articleId, addComment }) => {
 
       create({ body: comment, article_id: articleId }, jwt.token).then(
         (data) => {
-          if (!data || data.errors || data.exception) {
+          if (!data || data.errors || data.exception || data.message) {
             setLoading(false);
             return setCommentError(
               data && data.errors

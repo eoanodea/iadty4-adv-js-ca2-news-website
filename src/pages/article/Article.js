@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 28th January 2021 5:17:26 pm
+ * Last Modified: Friday, 29th January 2021 9:43:41 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -17,7 +17,7 @@ import React, { useEffect, useCallback } from "react";
 import { Button, createStyles, withStyles } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
 
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { show } from "../../api/api-article";
 
@@ -67,7 +67,7 @@ const Article = ({ history, match }) => {
   const [error, setError] = React.useState("");
 
   const [displayActions, setDisplayActions] = React.useState(false);
-
+  const [hasAuth, setHasAuth] = React.useState(false);
   /**
    * Load the article by the ID in the match object
    *
@@ -78,9 +78,9 @@ const Article = ({ history, match }) => {
     setLoading(true);
     const { id } = match.params;
     const jwt = auth.isAuthenticated();
-
+    if (!jwt) setHasAuth(false);
     show(id).then((data) => {
-      if (!data || data.errors || data.exception) {
+      if (!data || data.errors || data.exception || data.message) {
         setLoading(false);
 
         return setError(
@@ -125,6 +125,13 @@ const Article = ({ history, match }) => {
     });
   };
 
+  /**
+   * Redirect to the login page
+   */
+  const login = () => {
+    history.push(`/login${window.location.pathname}`);
+  };
+
   if (loading) return <Loading />;
   if (error !== "") return <EmptyState message={error} action={load} />;
   return (
@@ -132,20 +139,30 @@ const Article = ({ history, match }) => {
       <Button component={Link} to="/" startIcon={<ArrowBack />}>
         Back
       </Button>
-
-      <ArticleItem
-        article={article}
-        history={history}
-        displayActions={displayActions}
-      />
-      <Comments
-        articleId={article.id}
-        comments={comments}
-        addComment={addComment}
-        removeComment={removeComment}
-      />
+      <div style={{ position: "relative" }}>
+        <ArticleItem
+          article={article}
+          history={history}
+          displayActions={displayActions}
+          disableHeight={false}
+        />
+        {!hasAuth ? (
+          <EmptyState
+            message="Please login to view comments"
+            action={login}
+            actionLabel={"Login"}
+          />
+        ) : (
+          <Comments
+            articleId={article.id}
+            comments={comments}
+            addComment={addComment}
+            removeComment={removeComment}
+          />
+        )}
+      </div>
     </React.Fragment>
   );
 };
 
-export default withStyles(styles)(Article);
+export default withRouter(withStyles(styles)(Article));

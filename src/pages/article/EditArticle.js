@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Editing an Article Form
- * Last Modified: Tuesday, 26th January 2021 6:37:22 pm
+ * Last Modified: Friday, 29th January 2021 9:35:10 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -86,7 +86,7 @@ const EditArticle = ({ match, history, classes }) => {
      * Load the article
      */
     show(id).then((data) => {
-      if (!data || data.errors || data.exception) {
+      if (!data || data.errors || data.exception || data.message) {
         setError(
           data && data.errors
             ? Object.values(data.errors)[0][0]
@@ -106,7 +106,7 @@ const EditArticle = ({ match, history, classes }) => {
        * Load the category
        */
       list().then((data) => {
-        if (!data || data.errors || data.exception) {
+        if (!data || data.errors || data.exception || data.message) {
           setError(
             data && data.errors
               ? Object.values(data.errors)[0][0]
@@ -167,7 +167,7 @@ const EditArticle = ({ match, history, classes }) => {
         { title, body, category_id: selectedCategory.id },
         jwt.token
       ).then((data) => {
-        if (!data || data.errors || data.exception) {
+        if (!data || data.errors || data.exception || data.message) {
           setLoading(false);
           return setError(
             data && data.errors

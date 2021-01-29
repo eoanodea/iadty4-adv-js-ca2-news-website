@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Tuesday, 26th January 2021 6:52:31 pm
+ * Last Modified: Friday, 29th January 2021 9:36:00 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -40,50 +40,32 @@ const Comments = ({
   removeComment,
 }) => {
   /**
-   * Redirect to the login page
-   */
-  const login = () => {
-    history.push(`/login${window.location.pathname}`);
-  };
-  /**
-   * Check for auth before displaying comments
-   */
-  const hasAuth = auth.isAuthenticated();
-
-  /**
    * Render JSX
    */
   return (
     <React.Fragment>
       <Typography variant="h3">Comments</Typography>
-      {hasAuth ? (
-        <React.Fragment>
-          <AddComment
-            articleId={articleId}
-            addComment={(comment) => addComment(comment)}
-          />
 
-          {comments.length > 0 ? (
-            comments.map((comment, i) => (
-              <CommentItem
-                key={comment.id}
-                comment={comment}
-                removeComment={removeComment}
-              />
-            ))
-          ) : (
-            <Typography variant="body2" style={{ textAlign: "center" }}>
-              No comments found
-            </Typography>
-          )}
-        </React.Fragment>
-      ) : (
-        <EmptyState
-          message="Please login to view comments"
-          action={login}
-          actionLabel={"Login"}
+      <React.Fragment>
+        <AddComment
+          articleId={articleId}
+          addComment={(comment) => addComment(comment)}
         />
-      )}
+
+        {comments.length > 0 ? (
+          comments.map((comment, i) => (
+            <CommentItem
+              key={comment.id}
+              comment={comment}
+              removeComment={removeComment}
+            />
+          ))
+        ) : (
+          <Typography variant="body2" style={{ textAlign: "center" }}>
+            No comments found
+          </Typography>
+        )}
+      </React.Fragment>
     </React.Fragment>
   );
 };

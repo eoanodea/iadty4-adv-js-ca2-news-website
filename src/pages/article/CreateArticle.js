@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Creating n Article Form
- * Last Modified: Tuesday, 26th January 2021 6:26:35 pm
+ * Last Modified: Friday, 29th January 2021 9:35:10 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -77,7 +77,7 @@ const CreateArticle = ({ history, classes }) => {
    */
   const loadCategories = useCallback(() => {
     list().then((data) => {
-      if (!data || data.errors || data.exception) {
+      if (!data || data.errors || data.exception || data.message) {
         setLoadingCategories(false);
 
         return setError(
@@ -129,7 +129,7 @@ const CreateArticle = ({ history, classes }) => {
       const jwt = auth.isAuthenticated();
       create({ title, body, category_id: selectedCategory.id }, jwt.token).then(
         (data) => {
-          if (!data || data.errors || data.exception) {
+          if (!data || data.errors || data.exception || data.message) {
             setLoading(false);
             return setError(
               data && data.errors
