@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 29th January 2021 9:43:41 pm
+ * Last Modified: Friday, 29th January 2021 9:52:05 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -78,7 +78,7 @@ const Article = ({ history, match }) => {
     setLoading(true);
     const { id } = match.params;
     const jwt = auth.isAuthenticated();
-    if (!jwt) setHasAuth(false);
+    setHasAuth(jwt ? true : false);
     show(id).then((data) => {
       if (!data || data.errors || data.exception || data.message) {
         setLoading(false);
