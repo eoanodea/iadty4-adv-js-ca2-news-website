@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Thursday, 28th January 2021 5:41:26 pm
+ * Last Modified: Friday, 29th January 2021 10:26:04 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -32,6 +32,9 @@ import {
   MenuItem,
   Snackbar,
   CircularProgress,
+  useScrollTrigger,
+  CssBaseline,
+  Slide,
 } from "@material-ui/core";
 
 import routes from "./../../routing/routes";
@@ -55,13 +58,27 @@ const styles = () =>
     },
   });
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({ target: window ? window() : undefined });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
 /**
  * Header for the application
  *
  * @param {History} history - the browser history object
  * @param {Theme} classes - classes passed from Material UI Theme
  */
-const Header = ({ history, classes }) => {
+const Header = ({ history, classes, ...props }) => {
   /**
    * If set to true, displays routes that only authenticated users should see
    * If not, displays login / register
@@ -138,68 +155,79 @@ const Header = ({ history, classes }) => {
    * Render JSX
    */
   return (
-    <AppBar position="static">
-      <Toolbar className={classes.root}>
-        <Button component={Link} to="/">
-          Adv JS CA2
-        </Button>
+    <React.Fragment>
+      <CssBaseline />
+      <HideOnScroll {...props}>
+        <AppBar>
+          <Toolbar className={classes.root}>
+            <Button component={Link} to="/">
+              Adv JS CA2
+            </Button>
 
-        <div>
-          <Button component={Link} to="/">
-            Articles
-          </Button>
-          {routes
-            .filter((route) => route.authed === isAuthed && route.displayOnNav)
-            .map((route, i) => (
-              <Button key={i} component={Link} to={route.link}>
-                {route.name}
+            <div>
+              <Button component={Link} to="/">
+                Articles
               </Button>
-            ))}
+              {routes
+                .filter(
+                  (route) => route.authed === isAuthed && route.displayOnNav
+                )
+                .map((route, i) => (
+                  <Button key={i} component={Link} to={route.link}>
+                    {route.name}
+                  </Button>
+                ))}
 
-          {isAuthed && (
-            <React.Fragment>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem component={Link} to="/profile" onClick={handleClose}>
-                  Profile
-                </MenuItem>
-                <MenuItem disabled={loading} onClick={submit}>
-                  Logout {loading && <CircularProgress size={18} />}
-                </MenuItem>
-              </Menu>
-            </React.Fragment>
-          )}
-        </div>
-      </Toolbar>
+              {isAuthed && (
+                <React.Fragment>
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="inherit"
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                  >
+                    <MenuItem
+                      component={Link}
+                      to="/profile"
+                      onClick={handleClose}
+                    >
+                      Profile
+                    </MenuItem>
+                    <MenuItem disabled={loading} onClick={submit}>
+                      Logout {loading && <CircularProgress size={18} />}
+                    </MenuItem>
+                  </Menu>
+                </React.Fragment>
+              )}
+            </div>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
       <Snackbar
         open={message !== ""}
         autoHideDuration={6000}
         onClose={() => setMessage("")}
         message={message}
       ></Snackbar>
-    </AppBar>
+    </React.Fragment>
   );
 };
 

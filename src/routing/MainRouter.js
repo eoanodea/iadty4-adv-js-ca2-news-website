@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Main Router for the application
- * Last Modified: Tuesday, 26th January 2021 6:09:34 pm
+ * Last Modified: Friday, 29th January 2021 10:37:53 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -18,19 +18,19 @@ import { Route, Switch } from "react-router-dom";
 import { Grid } from "@material-ui/core";
 
 import Header from "../components/layout/Header";
+
 import Articles from "../pages/article/Articles";
 
 import routes from "./routes";
 
-const MainRouter = () => {
+const MainRouter = (props) => {
   return (
-    <React.Fragment>
+    <div>
       <Header />
       <Grid
         container
-        spacing={8}
         justify="center"
-        style={{ marginTop: "20px", marginBottom: "20px" }}
+        style={{ marginTop: "100px", marginBottom: "20px" }}
       >
         <Grid item xs={11}>
           <Switch>
@@ -42,7 +42,7 @@ const MainRouter = () => {
           </Switch>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </div>
   );
 };
 
