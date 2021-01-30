@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Saturday, 30th January 2021 12:34:21 pm
+ * Last Modified: Saturday, 30th January 2021 12:40:48 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -16,7 +16,8 @@ var CACHE_NAME = "pwa-task-manager";
 var urlsToCache = ["/", "/completed"];
 
 // Install a service worker
-window.self.addEventListener("install", (event) => {
+// eslint-disable-next-line
+self.addEventListener("install", (event) => {
   // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
@@ -27,7 +28,8 @@ window.self.addEventListener("install", (event) => {
 });
 
 // Cache and return requests
-window.self.addEventListener("fetch", (event) => {
+// eslint-disable-next-line
+self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then(function (response) {
       // Cache hit - return response
@@ -40,7 +42,8 @@ window.self.addEventListener("fetch", (event) => {
 });
 
 // Update a service worker
-window.self.addEventListener("activate", (event) => {
+// eslint-disable-next-line
+self.addEventListener("activate", (event) => {
   var cacheWhitelist = ["pwa-task-manager"];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
