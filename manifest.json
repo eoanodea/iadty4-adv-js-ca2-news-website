@@ -10,12 +10,8 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
@@ -27,19 +23,22 @@
       "name": "View Articles",
       "short_name": "Articles",
       "description": "View a list of articles",
-      "url": "/"
+      "url": "/",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
     },
     {
       "name": "Login",
       "short_name": "Login",
       "description": "Login to the application",
-      "url": "/login"
+      "url": "/login",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
     },
     {
       "name": "Register",
       "short_name": "Register",
       "description": "Sign up to the application",
-      "url": "/register"
+      "url": "/register",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
     }
   ]
 }
