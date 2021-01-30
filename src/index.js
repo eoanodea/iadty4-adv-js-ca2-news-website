@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description: Entry Point for React
- * Last Modified: Friday, 29th January 2021 11:04:59 pm
+ * Last Modified: Saturday, 30th January 2021 7:36:43 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -14,7 +14,7 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 import App from "./App";
 import reportWebVitals from "./tests/reportWebVitals";
@@ -26,4 +26,4 @@ ReactDOM.render(<App />, document.getElementById("root"));
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-serviceWorker.register();
+serviceWorkerRegistration.register();
