@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Articles",
+  "name": "Articles App",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +18,28 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "start_url": "./index.html",
+  "display": "minimal-ui",
+  "theme_color": "#ffc400",
+  "background_color": "#ffffff",
+  "shortcuts": [
+    {
+      "name": "View Articles",
+      "short_name": "Articles",
+      "description": "View a list of articles",
+      "url": "/"
+    },
+    {
+      "name": "Login",
+      "short_name": "Login",
+      "description": "Login to the application",
+      "url": "/login"
+    },
+    {
+      "name": "Register",
+      "short_name": "Register",
+      "description": "Sign up to the application",
+      "url": "/register"
+    }
+  ]
 }
