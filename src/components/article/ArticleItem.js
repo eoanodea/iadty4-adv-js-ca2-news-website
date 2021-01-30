@@ -6,7 +6,7 @@
  * Author: Eoan O'Dea (eoan@web-space.design)
  * -----
  * File Description:
- * Last Modified: Friday, 29th January 2021 9:41:56 pm
+ * Last Modified: Saturday, 30th January 2021 2:32:04 pm
  * Modified By: Eoan O'Dea (eoan@web-space.design>)
  * -----
  * Copyright 2021 WebSpace, WebSpace
@@ -22,7 +22,6 @@ import {
   Typography,
   createStyles,
   withStyles,
-  CardActions,
   Divider,
   Zoom,
   IconButton,
@@ -177,7 +176,6 @@ const ArticleItem = ({
               </React.Fragment>
             )}
           </CardContent>
-          <CardActions></CardActions>
         </ArticleActionArea>
         <DeleteArticle
           open={openDeleteDialog}
